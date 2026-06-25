@@ -1,0 +1,47 @@
+{
+  "base": "cd_ricardo_mendez_GALERIA_SIN_DUPLICADOS_OK.zip",
+  "reparaciones": {
+    "carga_admin_directa_a_storage": true,
+    "ruta_por_serie": "gallery/serie/archivo",
+    "confirmacion_guardado_gallery_y_settings": true,
+    "bloqueo_doble_click": true,
+    "bloqueo_duplicado_archivo_y_url": true,
+    "amplia_fotos_con_click_o_toque": true,
+    "cierra_con_fondo_boton_o_escape": true,
+    "sin_intervalos_nuevos": true,
+    "sin_mutation_observer_nuevo": true
+  },
+  "scripts": {
+    "rm-fix-carga-lightbox.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-admin-galeria-simple.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-publico.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 57
+}
