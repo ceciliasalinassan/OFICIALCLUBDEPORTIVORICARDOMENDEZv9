@@ -1,0 +1,62 @@
+{
+  "base": "cd_ricardo_mendez_GALERIA_CARPETAS_SERIES_REPARADA.zip",
+  "mejoras": {
+    "panel_de_partido_admin": true,
+    "panel_de_partido_publico": true,
+    "respaldo_completo_json": true,
+    "publicar_ocultar_noticias": true,
+    "publicar_ocultar_galeria": true,
+    "publicar_ocultar_jugador_destacado": true,
+    "filtro_por_serie_noticias": true,
+    "filtro_por_serie_galeria": true,
+    "selector_tabla_por_serie": true,
+    "estado_guardado_supabase": true,
+    "sin_intervalos_nuevos": true,
+    "sin_mutation_observer_nuevo": true
+  },
+  "scripts": {
+    "rm-mejoras-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-publico.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-admin-galeria-simple.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-gallery-folder-sync.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-final-section-order.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 52
+}

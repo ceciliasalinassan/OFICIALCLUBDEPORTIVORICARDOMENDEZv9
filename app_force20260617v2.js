@@ -206,7 +206,13 @@ async function pullCloud(){
   res=await supabaseClient.from('news').select('*').order('sort_order',{ascending:true});
   if(!res.error && res.data) d.news=res.data.map(x=>({title:x.title,text:x.text,date:x.date_text,image:x.image}));
   res=await supabaseClient.from('gallery').select('*').order('sort_order',{ascending:true});
-  if(!res.error && res.data) d.gallery=res.data.map(x=>({title:x.title,type:x.type,url:x.url}));
+  if(!res.error && res.data) {
+    const folderMap=(d.settings&&d.settings.galleryFolderMap&&typeof d.settings.galleryFolderMap==='object')?d.settings.galleryFolderMap:{};
+    d.gallery=res.data.map(x=>{
+      const folder=folderMap[x.url]||'General';
+      return {title:x.title,type:x.type,url:x.url,serie:folder,series:folder,folder:folder,carpeta:folder};
+    });
+  }
   res=await supabaseClient.from('presidents').select('*').order('sort_order',{ascending:true});
   if(!res.error && res.data) d.presidents=res.data.map(x=>({name:x.name,period:x.period,image:x.image}));
   res=await supabaseClient.from('standings').select('*').order('sort_order',{ascending:true});

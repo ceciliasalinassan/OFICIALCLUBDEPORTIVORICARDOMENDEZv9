@@ -1,123 +1,214 @@
+
 /* =========================================================
-   ADMIN · GALERÍA SIMPLE (SIN SERIES)
-   Crea y administra fotos o videos directamente.
+   ADMIN · GALERÍA POR CARPETAS Y SERIES
+   Guarda carpeta/serie, metadata y ruta real gallery/serie/.
 ========================================================= */
 (function(){
-  if(window.__RM_ADMIN_GALERIA_SIMPLE__) return;
-  window.__RM_ADMIN_GALERIA_SIMPLE__ = true;
+  if(window.__RM_ADMIN_GALLERY_FOLDERS__) return;
+  window.__RM_ADMIN_GALLERY_FOLDERS__ = true;
+
+  const DEFAULT_FOLDERS = [
+    'Peques','Segunda Infantil','Primera Infantil','Juveniles',
+    'Serie de Oro','Super Senior','Senior 35','Serie Damas',
+    'Serie de Honor','Primera Adulta','Segunda Adulta','Serie Platino','General'
+  ];
 
   const $ = id => document.getElementById(id);
-  const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const slug = value => String(value || 'general')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().trim().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'') || 'general';
 
-  function disableGalleryBySeries(){
-    // Bloque invisible con el mismo id: impide que el módulo antiguo lo vuelva a crear.
-    let old = $('rmGallerySeriesAdmin');
-    if(!old){
-      old = document.createElement('div');
-      old.id = 'rmGallerySeriesAdmin';
-      document.body.appendChild(old);
-    }
-    old.innerHTML = '';
-    old.hidden = true;
-    old.setAttribute('aria-hidden','true');
-    old.style.setProperty('display','none','important');
-    old.style.setProperty('visibility','hidden','important');
-    old.style.setProperty('height','0','important');
-    old.style.setProperty('margin','0','important');
-    old.style.setProperty('padding','0','important');
-    old.style.setProperty('overflow','hidden','important');
-  }
-
-  function galleryData(){
+  function currentData(){
     try{
       const data = typeof getData === 'function' ? getData() : {};
       data.gallery = Array.isArray(data.gallery) ? data.gallery : [];
+      data.settings = data.settings && typeof data.settings === 'object' ? data.settings : {};
       return data;
     }catch(e){
-      return {gallery:[]};
+      return {settings:{},gallery:[]};
     }
   }
 
+  function folderMap(data){
+    return data.settings && data.settings.galleryFolderMap && typeof data.settings.galleryFolderMap === 'object'
+      ? data.settings.galleryFolderMap : {};
+  }
+
+  function folderOf(item, data){
+    const direct = item?.serie || item?.series || item?.folder || item?.carpeta || item?.category || item?.categoria;
+    if(direct) return String(direct);
+    const map = folderMap(data);
+    const url = item?.url || item?.image || item?.image_url || '';
+    return map[url] || 'General';
+  }
+
+  function allFolders(data){
+    const stored = Array.isArray(data.settings?.galleryFolders) ? data.settings.galleryFolders : [];
+    const items = (data.gallery || []).map(item => folderOf(item,data));
+    return [...new Set([...DEFAULT_FOLDERS, ...stored, ...items].filter(Boolean))];
+  }
+
+  function persistFolderData(data){
+    data.settings = data.settings || {};
+    const map = {};
+    (data.gallery || []).forEach(item => {
+      const url = item.url || item.image || '';
+      const folder = folderOf(item,data);
+      item.serie = folder;
+      item.series = folder;
+      item.folder = folder;
+      item.carpeta = folder;
+      if(url) map[url] = folder;
+    });
+    data.settings.galleryFolderMap = map;
+    data.settings.galleryFolders = [...new Set([
+      ...DEFAULT_FOLDERS,
+      ...(Array.isArray(data.settings.galleryFolders) ? data.settings.galleryFolders : []),
+      ...Object.values(map)
+    ].filter(Boolean))];
+    return data;
+  }
+
   function mediaType(item){
-    const type = String(item?.type || '').toLowerCase();
+    const type = String(item?.type || item?.tipo || '').toLowerCase();
     const url = String(item?.url || item?.image || '').toLowerCase();
-    return type === 'video' || /\.mp4|\.webm|\.mov|youtube|youtu\.be/.test(url) ? 'video' : 'image';
+    return type === 'video' || type === 'video' || /\.mp4|\.webm|\.mov|youtube|youtu\.be/.test(url) ? 'video' : 'image';
+  }
+
+  function disableOldSeriesAdmin(){
+    const legacy = $('rmGallerySeriesAdmin');
+    if(legacy){
+      legacy.innerHTML = '';
+      legacy.hidden = true;
+      legacy.style.setProperty('display','none','important');
+    }
   }
 
   function renderList(){
-    const list = $('simpleGalleryList');
+    const list = $('rmFolderGalleryList');
     if(!list) return;
-    const data = galleryData();
+    const data = persistFolderData(currentData());
+    const folders = allFolders(data);
     const rows = data.gallery || [];
+
     list.innerHTML = rows.length ? rows.map((item,index) => {
-      const title = item.title || 'Sin título';
+      const title = item.title || item.titulo || 'Sin título';
       const url = item.url || item.image || '';
+      const folder = folderOf(item,data);
       const type = mediaType(item);
       const preview = url
-        ? (type === 'video' ? '<div class="rm-simple-gallery-video">▶</div>' : '<img src="'+esc(url)+'" alt="'+esc(title)+'">')
-        : '<div class="rm-simple-gallery-empty">RM</div>';
-      return '<article class="rm-simple-gallery-item">'+
-        '<div class="rm-simple-gallery-preview">'+preview+'</div>'+
-        '<div class="rm-simple-gallery-copy"><strong>'+esc(title)+'</strong><span>'+ (type === 'video' ? 'Video' : 'Fotografía') +'</span></div>'+
-        '<button type="button" class="rmSimpleDeleteMedia" data-index="'+index+'">Eliminar</button>'+
+        ? (type === 'video' ? '<div class="rm-folder-gallery-video">▶</div>' : '<img src="'+esc(url)+'" alt="'+esc(title)+'">')
+        : '<div class="rm-folder-gallery-empty">RM</div>';
+      return '<article class="rm-folder-gallery-item" data-index="'+index+'">' +
+        '<div class="rm-folder-gallery-preview">'+preview+'</div>' +
+        '<div class="rm-folder-gallery-copy"><strong>'+esc(title)+'</strong><span>'+esc(folder)+' · '+(type==='video'?'Video':'Fotografía')+'</span></div>' +
+        '<select class="rmMoveGalleryFolder">'+folders.map(f => '<option value="'+esc(f)+'" '+(f===folder?'selected':'')+'>'+esc(f)+'</option>').join('')+'</select>' +
+        '<button type="button" class="rmDeleteFolderMedia">Eliminar</button>' +
       '</article>';
-    }).join('') : '<div class="rm-simple-gallery-empty-state">Aún no hay fotografías ni videos en la galería.</div>';
+    }).join('') : '<div class="rm-folder-gallery-empty-state">Aún no hay fotos o videos cargados. Selecciona una carpeta/serie y agrega contenido.</div>';
 
-    list.querySelectorAll('.rmSimpleDeleteMedia').forEach(button => {
+    list.querySelectorAll('.rmMoveGalleryFolder').forEach(select => {
+      select.addEventListener('change', () => {
+        const item = select.closest('.rm-folder-gallery-item');
+        const idx = Number(item.dataset.index);
+        const d = currentData();
+        if(!d.gallery[idx]) return;
+        const folder = select.value || 'General';
+        d.gallery[idx].serie = folder;
+        d.gallery[idx].series = folder;
+        d.gallery[idx].folder = folder;
+        d.gallery[idx].carpeta = folder;
+        persistFolderData(d);
+        if(typeof saveData === 'function') saveData(d);
+        if(typeof toast === 'function') toast('Carpeta cambiada. Presiona Guardar carpetas para sincronizar.');
+      });
+    });
+
+    list.querySelectorAll('.rmDeleteFolderMedia').forEach(button => {
       button.addEventListener('click', async () => {
-        const index = Number(button.dataset.index);
-        const data = galleryData();
-        const item = data.gallery[index];
-        if(!item) return;
-        if(!confirm('¿Eliminar este elemento de la galería?')) return;
-        data.gallery.splice(index,1);
+        const row = button.closest('.rm-folder-gallery-item');
+        const idx = Number(row.dataset.index);
+        const d = currentData();
+        if(!d.gallery[idx]) return;
+        if(!confirm('¿Eliminar este archivo de la galería?')) return;
+        d.gallery.splice(idx,1);
+        persistFolderData(d);
         try{
-          if(typeof saveAll === 'function') await saveAll(data);
-          else if(typeof saveData === 'function') saveData(data);
-          if(typeof toast === 'function') toast('Elemento eliminado de la galería.');
+          if(typeof saveAll === 'function') await saveAll(d);
+          else if(typeof saveData === 'function') saveData(d);
+          if(typeof toast === 'function') toast('Archivo eliminado.');
         }catch(error){
           if(typeof err === 'function') err(error);
-          return;
         }
         renderList();
       });
     });
   }
 
-  function createGalleryPanel(){
+  function updateFolderInput(){
+    const select = $('rmGalleryFolder');
+    const custom = $('rmCustomGalleryFolder');
+    if(!select || !custom) return;
+    custom.hidden = select.value !== '__new__';
+    if(select.value !== '__new__') custom.value = '';
+  }
+
+  function selectedFolder(){
+    const select = $('rmGalleryFolder');
+    const custom = $('rmCustomGalleryFolder');
+    const chosen = select?.value === '__new__' ? String(custom?.value || '').trim() : String(select?.value || '').trim();
+    return chosen || 'General';
+  }
+
+  function createPanel(){
     const panel = $('tab-gallery');
     if(!panel) return;
 
-    panel.classList.add('rm-simple-gallery-admin');
-    panel.innerHTML =
-      '<h2>Crear Galería</h2>'+
-      '<p class="rm-simple-gallery-help">Agrega fotografías o videos a la galería general del club. No se dividen por series.</p>'+
-      '<div class="rm-simple-gallery-form">'+
-        '<label>Título del archivo<input id="rmSimpleMediaTitle" placeholder="Ej: Triunfo de Ricardo Méndez"></label>'+
-        '<label>Tipo de contenido<select id="rmSimpleMediaType"><option value="image">Fotografía</option><option value="video">Video</option></select></label>'+
-        '<label>Subir fotografía o video<input id="rmSimpleMediaFile" type="file" accept="image/*,video/*"></label>'+
-        '<div class="rm-simple-gallery-or">o</div>'+
-        '<label>URL de fotografía o video<input id="rmSimpleMediaUrl" type="url" placeholder="https://..."></label>'+
-        '<button type="button" id="rmSimpleAddMedia">Agregar a la galería</button>'+
-      '</div>'+
-      '<h3 class="rm-simple-gallery-subtitle">Contenido cargado</h3>'+
-      '<div id="simpleGalleryList" class="rm-simple-gallery-list"></div>';
+    const data = persistFolderData(currentData());
+    const folders = allFolders(data);
 
-    $('rmSimpleAddMedia').addEventListener('click', addMedia);
+    panel.className = 'tab-content hidden rm-folder-gallery-admin';
+    panel.innerHTML =
+      '<h2>Galería por carpetas y series</h2>' +
+      '<p class="rm-folder-gallery-help">Primero elige la carpeta o serie. El archivo se guardará físicamente en <b>gallery/carpeta/</b> y aparecerá dentro de esa carpeta en la web pública.</p>' +
+      '<div class="rm-folder-gallery-form">' +
+        '<label>Carpeta o serie<select id="rmGalleryFolder">'+
+          folders.map(folder => '<option value="'+esc(folder)+'">'+esc(folder)+'</option>').join('')+
+          '<option value="__new__">＋ Crear nueva carpeta</option>' +
+        '</select></label>' +
+        '<label id="rmCustomGalleryFolderWrap" hidden>Nueva carpeta<input id="rmCustomGalleryFolder" placeholder="Ej: Escuela de fútbol"></label>' +
+        '<label>Título del archivo<input id="rmFolderMediaTitle" placeholder="Ej: Triunfo de la serie juvenil"></label>' +
+        '<label>Tipo de contenido<select id="rmFolderMediaType"><option value="image">Fotografía</option><option value="video">Video</option></select></label>' +
+        '<label>Subir fotografía o video<input id="rmFolderMediaFile" type="file" accept="image/*,video/*"></label>' +
+        '<div class="rm-folder-gallery-or">o</div>' +
+        '<label>URL de fotografía o video<input id="rmFolderMediaUrl" type="url" placeholder="https://..."></label>' +
+        '<button type="button" id="rmFolderAddMedia">Guardar en carpeta</button>' +
+      '</div>' +
+      '<div class="rm-folder-gallery-actions"><button type="button" id="rmSaveFolderChanges">Guardar cambios de carpetas</button></div>' +
+      '<h3 class="rm-folder-gallery-subtitle">Archivos cargados</h3>' +
+      '<div id="rmFolderGalleryList" class="rm-folder-gallery-list"></div>';
+
+    $('rmGalleryFolder').addEventListener('change', updateFolderInput);
+    $('rmFolderAddMedia').addEventListener('click', addMedia);
+    $('rmSaveFolderChanges').addEventListener('click', saveFolderChanges);
     renderList();
   }
 
   async function addMedia(){
-    const title = String($('rmSimpleMediaTitle')?.value || '').trim();
-    let url = String($('rmSimpleMediaUrl')?.value || '').trim();
-    const declaredType = $('rmSimpleMediaType')?.value || 'image';
-    const file = $('rmSimpleMediaFile')?.files?.[0];
+    const folder = selectedFolder();
+    const title = String($('rmFolderMediaTitle')?.value || '').trim();
+    let url = String($('rmFolderMediaUrl')?.value || '').trim();
+    const declaredType = $('rmFolderMediaType')?.value || 'image';
+    const file = $('rmFolderMediaFile')?.files?.[0];
 
     if(file){
       try{
-        url = await uploadFile(file,'gallery');
+        // Ruta física real: gallery/<carpeta o serie>/<archivo>
+        url = await uploadFile(file, 'gallery/' + slug(folder));
       }catch(error){
         if(typeof err === 'function') err(error);
+        else alert(error.message || String(error));
         return;
       }
     }
@@ -128,23 +219,50 @@
       return;
     }
 
-    const type = file ? (file.type && file.type.startsWith('video') ? 'video' : 'image') : declaredType;
-    const data = galleryData();
-    data.gallery.unshift({title: title || (type === 'video' ? 'Video' : 'Fotografía'), type, url});
+    const type = file ? (file.type?.startsWith('video') ? 'video' : 'image') : declaredType;
+    const data = currentData();
+    const item = {
+      title: title || folder,
+      titulo: title || folder,
+      type,
+      tipo:type,
+      url,
+      image:url,
+      serie:folder,
+      series:folder,
+      folder,
+      carpeta:folder
+    };
+
+    data.gallery.unshift(item);
+    persistFolderData(data);
 
     try{
       if(typeof saveAll === 'function') await saveAll(data);
       else if(typeof saveData === 'function') saveData(data);
-      if(typeof toast === 'function') toast('Contenido agregado a la galería.');
+      if(typeof toast === 'function') toast('Archivo guardado en la carpeta '+folder+'.');
     }catch(error){
       if(typeof err === 'function') err(error);
       return;
     }
 
-    $('rmSimpleMediaTitle').value = '';
-    $('rmSimpleMediaUrl').value = '';
-    $('rmSimpleMediaFile').value = '';
+    $('rmFolderMediaTitle').value = '';
+    $('rmFolderMediaUrl').value = '';
+    $('rmFolderMediaFile').value = '';
+    $('rmGalleryFolder').value = folder;
     renderList();
+  }
+
+  async function saveFolderChanges(){
+    const data = persistFolderData(currentData());
+    try{
+      if(typeof saveAll === 'function') await saveAll(data);
+      else if(typeof saveData === 'function') saveData(data);
+      if(typeof toast === 'function') toast('Carpetas y series sincronizadas correctamente.');
+      renderList();
+    }catch(error){
+      if(typeof err === 'function') err(error);
+    }
   }
 
   function renameTab(){
@@ -153,10 +271,16 @@
     });
   }
 
-  function boot(){
-    disableGalleryBySeries();
+  function renderEventually(){
+    disableOldSeriesAdmin();
     renameTab();
-    createGalleryPanel();
+    createPanel();
+  }
+
+  function boot(){
+    renderEventually();
+    // El módulo antiguo alcanza a ejecutarse hasta los 2.6 s.
+    setTimeout(renderEventually, 3100);
   }
 
   if(document.readyState === 'loading'){
@@ -164,8 +288,16 @@
   }else{
     boot();
   }
-  setTimeout(boot, 250);
-  setTimeout(boot, 1200);
-  setTimeout(boot, 2600);
-  window.rmAdminGaleriaSimple = boot;
+
+  if(typeof renderAll === 'function' && !window.__RM_WRAP_ADMIN_RENDER_GALLERY__){
+    window.__RM_WRAP_ADMIN_RENDER_GALLERY__ = true;
+    const previous = renderAll;
+    window.renderAll = function(){
+      const result = previous.apply(this, arguments);
+      setTimeout(renderEventually, 50);
+      return result;
+    };
+  }
+
+  window.rmAdminGalleryFolders = renderEventually;
 })();

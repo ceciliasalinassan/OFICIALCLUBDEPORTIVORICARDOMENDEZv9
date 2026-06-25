@@ -1,0 +1,42 @@
+{
+  "base": "cd_ricardo_mendez_ADMIN_GALERIA_SIMPLE_OK.zip",
+  "admin_selects_folder_or_series": true,
+  "admin_can_create_new_folder": true,
+  "upload_physical_path_gallery_folder": true,
+  "metadata_serie_folder_saved": true,
+  "metadata_recovered_after_supabase_load": false,
+  "existing_files_can_move_folder": true,
+  "scripts": {
+    "rm-admin-galeria-simple.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-gallery-folder-sync.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 47
+}
