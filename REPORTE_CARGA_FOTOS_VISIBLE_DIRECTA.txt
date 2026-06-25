@@ -1,0 +1,46 @@
+{
+  "base": "cd_ricardo_mendez_CARGA_FOTOS_LIGHTBOX_OK.zip",
+  "correcciones": {
+    "formulario_escrito_directamente_en_html": true,
+    "boton_subir_visible": true,
+    "selector_carpeta_visible": true,
+    "entrada_archivo_visible": true,
+    "admin_simple_redirige_a_admin_principal": true,
+    "sin_dependencia_de_renderizador_galeria_anterior": true,
+    "sin_intervalos_nuevos": true,
+    "sin_mutation_observer_nuevo": true
+  },
+  "scripts": {
+    "rm-upload-gallery-visible.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-fix-carga-lightbox.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-gallery-folder-sync.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 60
+}

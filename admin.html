@@ -190,14 +190,14 @@
 </style>
 
 <link rel="stylesheet" href="rm-player-highlights-admin.css?v=destacados_20260624">
-<link rel="stylesheet" href="rm-admin-galeria-simple.css?v=sin_duplicados_20260625">
 <link rel="stylesheet" href="rm-fix-carga-lightbox.css?v=carga_lightbox_20260625">
+<link rel="stylesheet" href="rm-upload-gallery-visible.css?v=visible_upload_20260625">
 </head>
 <body class="admin-body"><div class="bg"></div><main class="admin-main">
 <section id="loginPanel" class="login"><h1>Panel administrador</h1><p>Acceso privado. Ingresa la clave.</p><input id="adminPassword" type="password" placeholder="Clave de administrador"><button id="loginBtn">Ingresar</button></section>
 <section id="adminPanel" class="admin-panel hidden"><h1>Panel Administrador</h1><p id="statusLine" class="status">Estado: pendiente.</p>
 <div class="tabs">
-<button data-tab="tab-supabase" class="active">Supabase</button><button data-tab="tab-general">General</button><button data-tab="tab-match">Próximo partido</button><button data-tab="tab-history">Historia</button><button data-tab="tab-directors">Directiva</button><button data-tab="tab-presidents">Presidentes</button><button data-tab="tab-results">Resultados</button><button data-tab="tab-news">Noticias</button><button data-tab="tab-gallery">Galería</button><button data-tab="tab-fixture">Fixture</button><button data-tab="tab-standings">Puntajes</button><button data-tab="tab-sponsors">Auspiciadores</button><button data-tab="tab-backup">Respaldo</button>
+<button data-tab="tab-supabase" class="active">Supabase</button><button data-tab="tab-general">General</button><button data-tab="tab-match">Próximo partido</button><button data-tab="tab-history">Historia</button><button data-tab="tab-directors">Directiva</button><button data-tab="tab-presidents">Presidentes</button><button data-tab="tab-results">Resultados</button><button data-tab="tab-news">Noticias</button><button data-tab="tab-gallery">Galería · Cargar fotos</button><button data-tab="tab-fixture">Fixture</button><button data-tab="tab-standings">Puntajes</button><button data-tab="tab-sponsors">Auspiciadores</button><button data-tab="tab-backup">Respaldo</button>
 <button data-tab="tab-appearance">Apariencia</button></div>
 <div class="tab-content" id="tab-supabase"><h2>Conexión Supabase</h2><label>Project URL</label><input id="supabaseUrl" placeholder="https://xxxxx.supabase.co"><label>Publishable Key</label><input id="supabaseKey" placeholder="sb_publishable_..."><button id="saveSupabase">Guardar conexión Supabase</button><button id="loadCloud">Cargar datos desde Supabase</button><button id="saveCloud">Subir datos actuales a Supabase</button></div>
 <div class="tab-content hidden" id="tab-general">
@@ -278,7 +278,88 @@
 </div>
 <h2>Resultados</h2><input id="resultDate" placeholder="Fecha"><input id="resultMatch" placeholder="Partido"><input id="resultScore" placeholder="Marcador"><button id="addResult">Agregar resultado</button><div id="resultsList"></div></div>
 <div class="tab-content hidden" id="tab-news"><h2>Noticias</h2><input id="newsTitle" placeholder="Título"><textarea id="newsText" placeholder="Texto"></textarea><input id="newsImage" type="file" accept="image/*"><button id="addNews">Agregar noticia</button><div id="newsList"></div></div>
-<div class="tab-content hidden" id="tab-gallery"><h2>Galería</h2><input id="mediaTitle" placeholder="Título"><input id="mediaFile" type="file" accept="image/*,video/*"><input id="mediaUrl" placeholder="URL video o imagen"><button id="addMedia">Agregar</button><div id="galleryList"></div></div>
+
+<div class="tab-content hidden rm-gallery-upload-direct" id="tab-gallery">
+  <div class="rm-gallery-upload-header">
+    <div>
+      <span class="rm-gallery-upload-kicker">ADMINISTRACIÓN DE GALERÍA</span>
+      <h2>Subir fotografías y videos</h2>
+      <p>1. Elige la serie o carpeta. 2. Selecciona el archivo. 3. Presiona <b>Subir ahora</b>.</p>
+    </div>
+    <button type="button" id="rmVisibleRefreshGallery" class="rm-gallery-refresh">Actualizar fotos cargadas</button>
+  </div>
+
+  <div class="rm-gallery-upload-card">
+    <label>
+      Carpeta o serie
+      <select id="rmVisibleGalleryFolder">
+        <option value="Peques">Peques</option>
+        <option value="Segunda Infantil">Segunda Infantil</option>
+        <option value="Primera Infantil">Primera Infantil</option>
+        <option value="Juveniles">Juveniles</option>
+        <option value="Serie de Oro">Serie de Oro</option>
+        <option value="Super Senior">Super Senior</option>
+        <option value="Senior 35">Senior 35</option>
+        <option value="Serie Damas">Serie Damas</option>
+        <option value="Serie de Honor">Serie de Honor</option>
+        <option value="Primera Adulta">Primera Adulta</option>
+        <option value="Segunda Adulta">Segunda Adulta</option>
+        <option value="Serie Platino">Serie Platino</option>
+        <option value="General">General</option>
+        <option value="__new__">＋ Crear carpeta nueva</option>
+      </select>
+    </label>
+
+    <label id="rmVisibleNewFolderWrap" hidden>
+      Nombre de nueva carpeta
+      <input id="rmVisibleNewFolder" placeholder="Ej: Escuela de fútbol">
+    </label>
+
+    <label>
+      Título de la foto o video
+      <input id="rmVisibleGalleryTitle" placeholder="Ej: Fecha 8 · Juveniles">
+    </label>
+
+    <label>
+      Tipo de contenido
+      <select id="rmVisibleGalleryType">
+        <option value="image">Fotografía</option>
+        <option value="video">Video</option>
+      </select>
+    </label>
+
+    <label class="rm-gallery-file-label">
+      Seleccionar fotografía o video
+      <input id="rmVisibleGalleryFile" type="file" accept="image/*,video/*">
+      <span id="rmVisibleFileName">Ningún archivo seleccionado</span>
+    </label>
+
+    <div class="rm-gallery-divider"><span>o</span></div>
+
+    <label>
+      Pegar URL de foto o video
+      <input id="rmVisibleGalleryUrl" type="url" placeholder="https://...">
+    </label>
+
+    <button type="button" id="rmVisibleUploadGallery" class="rm-gallery-upload-button">⬆ Subir ahora a la carpeta</button>
+  </div>
+
+  <div id="rmVisibleGalleryStatus" class="rm-visible-gallery-status" aria-live="polite">
+    Selecciona una foto o video para cargar.
+  </div>
+
+  <div class="rm-visible-gallery-list-wrap">
+    <div class="rm-visible-gallery-list-head">
+      <h3>Fotos y videos cargados</h3>
+      <div>
+        <input id="rmVisibleGallerySearch" type="search" placeholder="Buscar archivo">
+        <select id="rmVisibleGalleryFilter"><option value="__all__">Todas las carpetas</option></select>
+      </div>
+    </div>
+    <div id="rmVisibleGalleryList" class="rm-visible-gallery-list"></div>
+  </div>
+</div>
+
 <div class="tab-content hidden" id="tab-fixture"><h2>Fixture del club</h2><input id="fixtureTitle" placeholder="Título fecha"><input id="fixtureImage" type="file" accept="image/*"><button id="addFixture">Agregar imagen fixture</button><div id="fixtureList"></div></div>
 <div class="tab-content hidden" id="tab-standings">
 
@@ -779,68 +860,9 @@
 })();
 
 </script>
-<script id="rm-ngs-script">
-
-/* === RM NOTICIAS DESPLEGABLES + GALERIA POR SERIES === */
-(function(){
- if(window.__RM_NEWS_GALLERY_FOLDERS__)return; window.__RM_NEWS_GALLERY_FOLDERS__=true;
- const SB_URL="https://xzcbdyabzgwfoylipgco.supabase.co", SB_KEY="sb_publishable_rFYVLbY_0uJvOLJ0jftWzw_jsmNwVkl", SERIES=["Peques", "Segunda Infantil", "Primera Infantil", "Juveniles", "Serie Oro", "Super Senior", "Senior", "Segunda Adultos", "Primera Adultos", "Platinos", "Honor", "General"], BUCKET='club-assets';
- const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
- const main=()=>document.querySelector('main')||document.querySelector('#app')||document.body;
- function data(){try{if(typeof getData==='function')return getData()||{}}catch(e){};for(const k of ['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data']){try{let r=localStorage.getItem(k);if(r)return JSON.parse(r)}catch(e){}}return window.RM_DATA||window.clubData||{}}
- function save(d){try{if(typeof saveData==='function')saveData(d)}catch(e){};for(const k of ['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data']){try{localStorage.setItem(k,JSON.stringify(d))}catch(e){}}window.RM_DATA=d;window.clubData=d}
- function client(){try{if(typeof initSB==='function')initSB()}catch(e){};if(window.supabaseClient?.from)return window.supabaseClient;if(window.sb?.from)return window.sb;if(window.supabase?.createClient){window.supabaseClient=window.supabase.createClient(SB_URL,SB_KEY);window.sb=window.supabaseClient;return window.sb}return null}
- async function rest(table){try{let r=await fetch(SB_URL.replace(/\/$/,'')+'/rest/v1/'+table+'?select=*',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(!r.ok)return[];let j=await r.json();return Array.isArray(j)?j:[]}catch(e){return[]}}
- async function insert(table,payload){try{let r=await fetch(SB_URL.replace(/\/$/,'')+'/rest/v1/'+table,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(payload)});if(!r.ok)return null;let j=await r.json();return Array.isArray(j)?j[0]:j}catch(e){return null}}
- async function upload(file,serie){let c=client(); if(!file||!c?.storage)return''; let safe=(file.name||'archivo').replace(/[^a-zA-Z0-9._-]/g,'_'); let path='gallery/'+String(serie||'general').replace(/\s+/g,'_').toLowerCase()+'/'+Date.now()+'_'+safe; try{let up=await c.storage.from(BUCKET).upload(path,file,{cacheControl:'3600',upsert:false}); if(up.error)return''; let pub=c.storage.from(BUCKET).getPublicUrl(path); return pub?.data?.publicUrl||''}catch(e){return''}}
- const urlOf=o=>o?.url||o?.image||o?.image_url||o?.imageUrl||o?.src||o?.file_url||o?.publicUrl||o?.public_url||o?.video||o?.video_url||'';
- const titleOf=(o,f='Galería')=>o?.title||o?.titulo||o?.name||o?.nombre||o?.descripcion||o?.description||f;
- const serieOf=o=>o?.serie||o?.series||o?.category||o?.categoria||o?.folder||o?.carpeta||'General';
- function typeOf(o){let u=urlOf(o).toLowerCase(),t=String(o?.type||o?.tipo||'').toLowerCase(); return t.includes('video')||/\.mp4|\.webm|\.mov|youtube|youtu\.be/.test(u)?'video':'photo'}
- function logo(){let img=document.querySelector('img[src*="logo_ricardo_mendez"],.club-logo img,.logo img');return img?.currentSrc||img?.src||'logo_ricardo_mendez.png'}
- async function newsData(){let d=data(); if(Array.isArray(d.news)&&d.news.length)return d.news; let r=await rest('news'); if(r.length){d.news=r;save(d)} return r}
- async function galData(){let d=data(); if(Array.isArray(d.gallery)&&d.gallery.length)return d.gallery; let r=await rest('gallery'); if(r.length){d.gallery=r;save(d)} return r}
- async function renderNews(){
-  let news=await newsData(), old=document.getElementById('newsGrid')||document.querySelector('.news-grid,.noticias-grid'), oldSec=old?.closest('section,.section')||old?.parentElement;
-  let sec=document.getElementById('rmNewsAccordionSection')||document.createElement('section'); sec.id='rmNewsAccordionSection'; sec.className='section rm-news-accordion-section';
-  sec.innerHTML='<div class="rm-accordion-head"><div><h2>Noticias</h2><p>Información oficial del club</p></div><button type="button" id="rmToggleNewsBtn" class="rm-toggle-news-btn" aria-expanded="false"><span>+</span> Ver noticias</button></div><div id="rmNewsAccordionBody" class="rm-news-accordion-body" hidden><div class="rm-news-accordion-grid"></div></div>';
-  let grid=sec.querySelector('.rm-news-accordion-grid');
-  grid.innerHTML=news.length?news.map(n=>{let im=urlOf(n),ti=titleOf(n,'Noticia'),tx=n.text||n.descripcion||n.description||n.body||n.content||'';return '<article class="rm-news-accordion-card">'+(im?'<img src="'+esc(im)+'" alt="'+esc(ti)+'" loading="lazy">':'<div class="rm-news-no-img">RM</div>')+'<div class="rm-news-text"><h3>'+esc(ti)+'</h3><p>'+esc(tx)+'</p></div></article>'}).join(''):'<div class="rm-empty-box">Aún no hay noticias cargadas.</div>';
-  if(oldSec&&oldSec!==sec&&oldSec.parentElement){oldSec.parentElement.insertBefore(sec,oldSec); oldSec.classList.add('rm-old-news-hidden'); oldSec.style.setProperty('display','none','important')} else if(!sec.parentElement){let h=document.getElementById('historyPrincipalSection')||document.querySelector('.history-principal-section'); h?.parentElement?h.parentElement.insertBefore(sec,h):main().appendChild(sec)}
-  let btn=sec.querySelector('#rmToggleNewsBtn'), body=sec.querySelector('#rmNewsAccordionBody');
-  btn.onclick=()=>{let open=!body.hidden; body.hidden=open; btn.setAttribute('aria-expanded',String(!open)); btn.innerHTML=open?'<span>+</span> Ver noticias':'<span>−</span> Ocultar noticias'; sec.classList.toggle('open',!open)};
- }
- function groups(items){let g={};SERIES.forEach(s=>g[s]=[]);items.forEach(it=>{let s=serieOf(it); if(!g[s])g[s]=[]; g[s].push(it)});return g}
- async function renderFolders(){
-  let gal=await galData(), old=document.getElementById('galleryGrid')||document.querySelector('.gallery-grid,.galeria-grid,.photos-grid,.photo-grid'), oldSec=old?.closest('section,.section')||old?.parentElement, g=groups(gal), sec=document.getElementById('rmGalleryFoldersSection')||document.createElement('section');
-  sec.id='rmGalleryFoldersSection'; sec.className='section rm-gallery-folders-section'; sec.innerHTML='<div class="section-head rm-gallery-folder-head"><h2>Fotos y videos por serie</h2><p>Carpetas ordenadas con el logo del club</p></div><div id="rmGalleryFolderGrid" class="rm-gallery-folder-grid"></div><div id="rmGalleryFolderContent" class="rm-gallery-folder-content" hidden></div>';
-  let fg=sec.querySelector('#rmGalleryFolderGrid'), cont=sec.querySelector('#rmGalleryFolderContent'), lg=logo();
-  fg.innerHTML=SERIES.map(s=>'<button type="button" class="rm-serie-folder" data-serie="'+esc(s)+'"><img src="'+esc(lg)+'" alt="Logo Ricardo Méndez"><strong>'+esc(s)+'</strong><span>'+((g[s]||[]).length)+' archivo'+(((g[s]||[]).length)==1?'':'s')+'</span></button>').join('');
-  fg.querySelectorAll('.rm-serie-folder').forEach(b=>b.onclick=()=>{let s=b.dataset.serie, arr=g[s]||[]; fg.hidden=true; cont.hidden=false; cont.innerHTML='<div class="rm-folder-open-head"><button type="button" id="rmBackFoldersBtn">← Volver a carpetas</button><h3>'+esc(s)+'</h3></div><div class="rm-folder-media-grid">'+(arr.length?arr.map(it=>{let u=urlOf(it),t=titleOf(it,s); if(typeOf(it)==='video')return '<article class="rm-folder-media-card">'+(u.includes('youtube')||u.includes('youtu.be')?'<a href="'+esc(u)+'" target="_blank">▶ Ver video</a>':'<video src="'+esc(u)+'" controls></video>')+'<h4>'+esc(t)+'</h4></article>'; return '<article class="rm-folder-media-card"><img src="'+esc(u)+'" alt="'+esc(t)+'" loading="lazy"><h4>'+esc(t)+'</h4></article>'}).join(''):'<div class="rm-empty-box">Carpeta sin fotos ni videos todavía.</div>')+'</div>'; cont.querySelector('#rmBackFoldersBtn').onclick=()=>{cont.hidden=true;fg.hidden=false}});
-  if(oldSec&&oldSec!==sec&&oldSec.parentElement){oldSec.parentElement.insertBefore(sec,oldSec); oldSec.classList.add('rm-old-gallery-hidden'); oldSec.style.setProperty('display','none','important')} else if(!sec.parentElement)main().appendChild(sec);
- }
- function adminPanel(){
-  if(!/admin/i.test(location.pathname)&&!document.querySelector('.admin,.admin-panel,#adminPanel'))return; if(document.getElementById('rmGallerySeriesAdmin'))return;
-  let box=document.createElement('section'); box.id='rmGallerySeriesAdmin'; box.className='admin-card rm-gallery-series-admin';
-  box.innerHTML='<h2>Galería por series</h2><p>Asigna fotos/videos a una serie o agrega un nuevo archivo para que aparezca en carpetas.</p><div class="rm-admin-add-gallery"><input id="rmGalTitle" placeholder="Título foto/video"><select id="rmGalSerie">'+SERIES.map(s=>'<option>'+esc(s)+'</option>').join('')+'</select><select id="rmGalType"><option value="photo">Foto</option><option value="video">Video</option></select><input id="rmGalUrl" placeholder="URL imagen/video o subir archivo"><input id="rmGalFile" type="file" accept="image/*,video/*"><button type="button" id="rmAddGalleryBySerie">Agregar a carpeta</button></div><div id="rmGallerySeriesRows" class="rm-gallery-series-rows"></div><button type="button" id="rmSaveGallerySeries">Guardar cambios de series</button>';
-  (document.querySelector('main')||document.body).appendChild(box);
-  function rows(){let d=data(), arr=Array.isArray(d.gallery)?d.gallery:[], h=document.getElementById('rmGallerySeriesRows'); h.innerHTML=arr.map((it,i)=>'<div class="rm-gallery-series-row" data-idx="'+i+'"><span class="rm-mini-preview">'+(urlOf(it)?'<img src="'+esc(urlOf(it))+'">':'RM')+'</span><input class="rm-row-title" value="'+esc(titleOf(it,'Galería'))+'" placeholder="Título"><select class="rm-row-serie">'+SERIES.map(s=>'<option '+(s===serieOf(it)?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select><button type="button" class="rmDeleteGalleryItem">Eliminar</button></div>').join(''); h.querySelectorAll('.rmDeleteGalleryItem').forEach(btn=>btn.onclick=()=>btn.closest('.rm-gallery-series-row').remove())}
-  document.getElementById('rmAddGalleryBySerie').onclick=async()=>{let title=document.getElementById('rmGalTitle').value.trim(), serie=document.getElementById('rmGalSerie').value, type=document.getElementById('rmGalType').value, u=document.getElementById('rmGalUrl').value.trim(), file=document.getElementById('rmGalFile').files[0]; if(file){let up=await upload(file,serie); if(up)u=up} if(!u){alert('Debes colocar una URL o subir un archivo.');return} let d=data(); d.gallery=Array.isArray(d.gallery)?d.gallery:[]; let it={title:title||serie,titulo:title||serie,serie:serie,series:serie,type:type,tipo:type,url:u,image:u}; d.gallery.push(it); save(d); try{await insert('gallery',it)}catch(e){}; try{if(typeof pushCloud==='function')await pushCloud()}catch(e){}; rows(); alert('Archivo agregado a '+serie)};
-  document.getElementById('rmSaveGallerySeries').onclick=async()=>{let d=data(), old=Array.isArray(d.gallery)?d.gallery:[], upd=[]; document.querySelectorAll('#rmGallerySeriesRows .rm-gallery-series-row').forEach(row=>{let it=old[Number(row.dataset.idx)]||{}, ti=row.querySelector('.rm-row-title').value.trim(), se=row.querySelector('.rm-row-serie').value; it.title=ti||it.title||se; it.titulo=it.title; it.serie=se; it.series=se; upd.push(it)}); d.gallery=upd; save(d); try{if(typeof pushCloud==='function')await pushCloud()}catch(e){}; alert('Series de galería guardadas.')};
-  rows();
- }
- async function run(){await renderNews(); await renderFolders(); adminPanel()}
- if(typeof renderPublic==='function'){let old=renderPublic; renderPublic=function(){let r=old.apply(this,arguments); setTimeout(run,160); setTimeout(run,1400); return r}}
- document.addEventListener('DOMContentLoaded',()=>{setTimeout(run,160);setTimeout(run,1400);setTimeout(run,3200)});
- document.addEventListener('rm:supabase-mobile-loaded',()=>setTimeout(run,200));
- window.addEventListener('pageshow',()=>setTimeout(run,260));
- window.rmNoticiasGaleriaSeries=run;
-})();
-
-</script>
 <script src="rm-player-highlights-admin.js?v=destacados_20260624"></script>
-<script src="rm-admin-galeria-simple.js?v=sin_duplicados_20260625"></script>
-<script src="rm-gallery-folder-sync.js?v=carpetas_series_20260625"></script>
 <script src="rm-mejoras-admin.js?v=mejoras_estables_20260625"></script>
 <script src="rm-fix-carga-lightbox.js?v=carga_lightbox_20260625"></script>
+<script src="rm-upload-gallery-visible.js?v=visible_upload_20260625"></script>
+<script src="rm-force-gallery-tab.js?v=galeria_directa_20260625"></script>
 </body></html>

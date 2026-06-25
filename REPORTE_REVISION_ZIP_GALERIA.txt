@@ -1,0 +1,52 @@
+{
+  "base_revisada": "cd_ricardo_mendez_CARGA_FOTOS_VISIBLE_DIRECTA_OK(1).zip",
+  "archivo_zip_integro": true,
+  "script_heredado_galeria_series_detectado_y_eliminado": 1,
+  "revision": {
+    "formulario_fijo_en_admin_html": true,
+    "pestana_galeria_visible": true,
+    "script_heredado_galeria_por_series_eliminado": true,
+    "sincronizador_antiguo_fuera_del_admin": true,
+    "admin_simple_redirige_al_principal": true,
+    "vercel_admin_simple_va_al_principal": true
+  },
+  "ids_relevantes": {
+    "tab-gallery": 1,
+    "rmVisibleGalleryFile": 1,
+    "rmVisibleUploadGallery": 1,
+    "rmVisibleGalleryFolder": 1
+  },
+  "scripts": {
+    "rm-force-gallery-tab.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-upload-gallery-visible.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-fix-carga-lightbox.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 62
+}
