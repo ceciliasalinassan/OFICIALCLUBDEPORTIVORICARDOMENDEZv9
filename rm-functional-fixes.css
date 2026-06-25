@@ -1,0 +1,58 @@
+
+/* =========================================================
+   AJUSTES FUNCIONALES FINALES · SIN CAMBIAR LA ESTÉTICA
+========================================================= */
+
+/* Solo se ocultan los tres paneles duplicados de portada. */
+.sponsor-ticker-section,
+.dual-home,
+#auspiciadores,
+#noticias,
+#galeria {
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+
+/* Mantener las secciones finales reales. */
+#rmSponsorsDefCarousel,
+#rmNovedadesFinal,
+#rmGalleryFoldersSection,
+#rmFecha8Standings,
+#memberSection,
+#presidentsHistorySection,
+#sponsorsBottomSection {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+/* En la página pública no se muestra acceso de administración. */
+#rmSideButtons a[href*="admin"],
+a[title="Admin"] {
+  display:none !important;
+}
+
+/* Confirmación visual de Hazte Socio. */
+.rm-member-notice-final {
+  grid-column:1/-1;
+  margin:2px 0 0;
+  padding:9px 11px;
+  border:1px solid rgba(0,220,140,.45);
+  border-radius:10px;
+  background:rgba(0,150,90,.18);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* El botón de música conserva su forma actual y queda disponible. */
+#topMusicPlayer #musicToggleBtn.rm-music-working {
+  opacity:1 !important;
+  pointer-events:auto !important;
+}

@@ -1,0 +1,46 @@
+{
+  "base": "cd_ricardo_mendez_RESTAURA_ACUMULADA_RANKING_OK.zip",
+  "orden_deportivo": [
+    "Tabla de posiciones por serie",
+    "Tabla acumulativa de clubes",
+    "Ranking de mejores series",
+    "Jugador destacado del partido por serie"
+  ],
+  "jugador_destacado_compacto": true,
+  "atributos_tactica_garra_liderazgo": true,
+  "admin_carga_serie_nombre_foto_atributos": true,
+  "sync_player_highlights_en_supabase_settings": true,
+  "scripts": {
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-player-highlights-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-restore-acumulada-ranking.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 30
+}

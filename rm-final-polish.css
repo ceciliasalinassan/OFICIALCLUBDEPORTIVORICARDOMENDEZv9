@@ -1,0 +1,20 @@
+/* FINAL POLISH: solo Movimiento Continuo, Noticias visibles y Fecha 8 */
+#rmSponsorsTopCarousel,.rm-sponsors-top-carousel{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+#rmSponsorsDefCarousel,.rm-sponsors-def-carousel{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:999!important;min-height:90px!important}
+#rmSponsorsDefCarousel .rm-def-carousel-track{animation:rmDefCarouselMove 22s linear infinite!important;animation-play-state:running!important}
+#rmNewsAccordionSection{display:none!important}
+#rmNovedadesFinal{display:block!important;visibility:visible!important;opacity:1!important;max-width:1180px!important;margin:16px auto!important}
+#rmFecha8Standings{display:block!important;visibility:visible!important;opacity:1!important;max-width:1180px!important;margin:16px auto!important}
+
+
+/* Ajuste interno móvil: no modifica estructura ni estética */
+@media (max-width: 760px) {
+  .rm-perf-mobile * {
+    scroll-behavior: auto !important;
+  }
+  .rm-perf-mobile .sparkle,
+  .rm-perf-mobile .glow-pulse,
+  .rm-perf-mobile .floating-particle {
+    animation-duration: 8s !important;
+  }
+}

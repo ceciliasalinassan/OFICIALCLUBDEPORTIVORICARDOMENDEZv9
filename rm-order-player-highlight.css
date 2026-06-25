@@ -1,0 +1,171 @@
+
+/* =========================================================
+   ORDEN DE TABLAS + JUGADORES DESTACADOS POR SERIE
+========================================================= */
+#rmFecha8Standings,
+#ranking,
+#seriesRankingSection,
+#playerHighlightsSection {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  height:auto !important;
+  max-height:none !important;
+}
+
+#playerHighlightsSection.rm-player-highlights-section {
+  max-width:1180px !important;
+  margin:18px auto !important;
+}
+
+.rm-highlight-head {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+}
+
+.rm-highlight-head h2 {
+  color:var(--gold,#f7d36b) !important;
+}
+
+.rm-highlight-label {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(0,91,255,.46);
+  border-radius:999px;
+  background:rgba(0,91,255,.16);
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.07em;
+  padding:7px 10px;
+  white-space:nowrap;
+}
+
+.rm-player-highlights-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+
+.rm-player-highlight-card {
+  display:grid;
+  grid-template-columns:64px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:88px;
+  padding:10px;
+  border:1px solid rgba(0,91,255,.34);
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(0,15,34,.88),rgba(0,91,255,.12));
+  box-shadow:0 0 12px rgba(0,91,255,.10);
+}
+
+.rm-player-highlight-card img,
+.rm-player-highlight-photo {
+  width:62px;
+  height:62px;
+  border-radius:12px;
+  object-fit:cover;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(247,211,107,.4);
+}
+
+.rm-player-highlight-photo {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold,#f7d36b);
+  font-weight:900;
+  font-size:16px;
+}
+
+.rm-highlight-serie {
+  display:block;
+  color:var(--gold,#f7d36b);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.rm-player-highlight-content h3 {
+  margin:3px 0 6px;
+  color:#fff;
+  font-size:15px;
+  line-height:1.1;
+}
+
+.rm-highlight-badges {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+
+.rm-highlight-badges span {
+  border-radius:999px;
+  padding:3px 6px;
+  background:rgba(0,200,255,.13);
+  border:1px solid rgba(0,200,255,.25);
+  color:#dff8ff;
+  font-size:9px;
+  font-weight:800;
+}
+
+.rm-highlight-empty {
+  grid-column:1/-1;
+  padding:12px;
+  border:1px dashed rgba(0,91,255,.42);
+  border-radius:12px;
+  color:#d9e8ff;
+  font-size:12px;
+  background:rgba(0,0,0,.18);
+}
+
+@media(max-width:760px){
+  #playerHighlightsSection.rm-player-highlights-section {
+    margin:14px 8px !important;
+    padding:13px 10px !important;
+  }
+  .rm-highlight-head {
+    align-items:flex-start !important;
+    flex-direction:column !important;
+  }
+  .rm-player-highlights-grid {
+    grid-template-columns:1fr !important;
+  }
+}
+
+
+/* =========================================================
+   JUGADOR DESTACADO · VISIBILIDAD GARANTIZADA
+========================================================= */
+#playerHighlightsSection.rm-player-highlights-section{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  height:auto !important;
+  min-height:116px !important;
+  max-height:none !important;
+  overflow:visible !important;
+  max-width:1180px !important;
+  margin:18px auto !important;
+}
+#playerHighlightsSection .rm-player-highlights-grid{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr)) !important;
+  gap:10px !important;
+}
+#playerHighlightsSection .rm-player-highlight-card{
+  display:grid !important;
+  grid-template-columns:64px 1fr !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-height:88px !important;
+}
+#playerHighlightsSection .rm-player-default-card{
+  display:grid !important;
+}

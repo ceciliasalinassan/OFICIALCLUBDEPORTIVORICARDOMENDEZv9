@@ -1,0 +1,48 @@
+{
+  "base": "cd_ricardo_mendez_LOGO_MAS_GRANDE_VISIBLE_OK.zip",
+  "orden": [
+    "Tabla de Posiciones",
+    "Tabla Acumulativa",
+    "Ranking Mejor Serie",
+    "Hazte Socio",
+    "Auspiciadores Oficiales"
+  ],
+  "jugador_destacado_movido_despues_auspiciadores": true,
+  "scripts": {
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-restore-acumulada-ranking.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-logo-bajo-botones.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-final-section-order.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 36
+}

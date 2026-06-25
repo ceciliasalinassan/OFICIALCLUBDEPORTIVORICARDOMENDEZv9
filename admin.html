@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin · Ricardo Méndez</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v=fecha8_revision_limpia_20260624"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style id="rm-final-carousel-numbers-style">
+
+/* FIX FINAL CARRUSEL SIEMPRE VISIBLE + CLUB EN NUMEROS EDITABLE */
+#rmSponsorsTopCarousel.rm-sponsors-top-carousel,#rmSponsorsTopCarousel.rm-carousel-force-visible{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:999!important;clear:both!important;width:100%!important;max-width:1180px!important;margin:12px auto 14px auto!important;padding:10px 12px!important;border-radius:18px!important;background:rgba(0,8,18,.72)!important;border:1px solid rgba(0,91,255,.45)!important;box-shadow:0 0 24px rgba(0,91,255,.18)!important;overflow:hidden!important;transform:none!important;pointer-events:auto!important;height:auto!important;min-height:86px!important;max-height:none!important}
+#rmSponsorsTopCarousel .rm-sponsors-top-title{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;color:#f7d36b!important;font-size:12px!important;text-transform:uppercase!important;font-weight:900!important;margin-bottom:8px!important}#rmSponsorsTopCarousel .rm-sponsors-top-title span{color:#fff!important;opacity:.78!important;font-size:10px!important}
+#rmSponsorsTopCarousel .rm-sponsors-top-track{display:flex!important;align-items:center!important;gap:12px!important;width:max-content!important;min-width:100%!important;animation:rmSponsorMoveForceFinal 30s linear infinite!important}@keyframes rmSponsorMoveForceFinal{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#rmSponsorsTopCarousel .rm-top-sponsor-item{display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;min-width:130px!important;max-width:170px!important;height:58px!important;padding:6px 8px!important;border-radius:14px!important;background:rgba(0,8,18,.34)!important;border:1px solid rgba(0,91,255,.34)!important;flex:0 0 auto!important}
+#rmSponsorsTopCarousel .rm-top-sponsor-item img{max-width:76px!important;max-height:42px!important;width:auto!important;height:auto!important;object-fit:contain!important;background:transparent!important;filter:drop-shadow(0 0 6px rgba(0,0,0,.7))!important}#rmSponsorsTopCarousel .rm-top-sponsor-item span{color:#fff!important;font-size:9px!important;line-height:1.1!important;font-weight:800!important;max-width:76px!important;overflow:hidden!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important}
+#rmClubNumbersPanel.rm-club-numbers-panel{display:block!important;visibility:visible!important;opacity:1!important;width:100%!important;max-width:1180px!important;margin:12px auto 14px auto!important;padding:12px!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(0,8,18,.86),rgba(0,91,255,.10))!important;border:1px solid rgba(0,91,255,.38)!important;box-shadow:0 0 18px rgba(0,91,255,.12)!important;box-sizing:border-box!important}#rmClubNumbersPanel .section-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;margin-bottom:10px!important}#rmClubNumbersPanel .section-head h2{color:#f7d36b!important;text-transform:uppercase!important;margin:0!important;font-size:18px!important}#rmClubNumbersPanel .section-head p{margin:0!important;color:#fff!important;opacity:.82!important;font-size:12px!important}
+.rm-club-numbers-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(145px,1fr))!important;gap:9px!important}.rm-club-number-card{padding:10px!important;border-radius:14px!important;background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.10)!important}.rm-club-number-card span{display:block!important;color:#fff!important;opacity:.78!important;font-size:11px!important;font-weight:800!important;margin-bottom:4px!important}.rm-club-number-card strong{display:block!important;color:#f7d36b!important;font-size:17px!important;font-weight:900!important}
+#rmClubNumbersAdmin{display:block!important;margin:18px 0!important;padding:14px!important;border-radius:18px!important;background:rgba(0,8,18,.82)!important;border:1px solid rgba(0,91,255,.42)!important;box-shadow:0 0 18px rgba(0,91,255,.14)!important}#rmClubNumbersAdmin h2{color:#f7d36b!important;margin-top:0!important}.rm-admin-numbers-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))!important;gap:10px!important;margin:10px 0!important}.rm-admin-numbers-grid label{color:#fff!important;font-size:12px!important;font-weight:900!important;display:flex!important;flex-direction:column!important;gap:5px!important}.rm-admin-numbers-grid input{height:38px!important;border-radius:10px!important;border:1px solid rgba(0,91,255,.42)!important;background:rgba(0,0,0,.35)!important;color:#fff!important;padding:0 9px!important}#rmSaveClubNumbersBtn{border:0!important;border-radius:12px!important;padding:10px 14px!important;background:#005BFF!important;color:#fff!important;font-weight:900!important;cursor:pointer!important}
+@media(max-width:820px){#rmSponsorsTopCarousel.rm-sponsors-top-carousel,#rmSponsorsTopCarousel.rm-carousel-force-visible{margin:10px 0 12px 0!important;padding:9px!important;min-height:78px!important;border-radius:16px!important}#rmSponsorsTopCarousel .rm-top-sponsor-item{min-width:108px!important;height:52px!important}#rmSponsorsTopCarousel .rm-top-sponsor-item img{max-width:62px!important;max-height:36px!important}#rmClubNumbersPanel .section-head{flex-direction:column!important;align-items:flex-start!important}.rm-club-numbers-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.rm-admin-numbers-grid{grid-template-columns:1fr!important}}
+
+</style>
+<style id="rm-revision-ok-carousel-numbers-style">
+
+/* REVISION OK CARRUSEL + CLUB EN NUMEROS ADMIN */
+#rmSponsorsTopCarousel.rm-sponsors-top-carousel,
+#rmSponsorsTopCarousel.rm-carousel-visible-final,
+#rmSponsorsTopCarousel.rm-carousel-force-visible{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  z-index:999!important;
+  clear:both!important;
+  width:100%!important;
+  max-width:1180px!important;
+  margin:12px auto 14px auto!important;
+  padding:10px 12px!important;
+  border-radius:18px!important;
+  background:rgba(0,8,18,.72)!important;
+  border:1px solid rgba(0,91,255,.42)!important;
+  box-shadow:0 0 22px rgba(0,91,255,.16)!important;
+  overflow:hidden!important;
+  transform:none!important;
+  pointer-events:auto!important;
+  height:auto!important;
+  min-height:86px!important;
+  max-height:none!important;
+}
+#rmSponsorsTopCarousel .rm-sponsors-top-title{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  color:#f7d36b!important;
+  font-size:12px!important;
+  text-transform:uppercase!important;
+  font-weight:900!important;
+  margin-bottom:8px!important;
+}
+#rmSponsorsTopCarousel .rm-sponsors-top-title span{color:#fff!important;opacity:.78!important;font-size:10px!important}
+#rmSponsorsTopCarousel .rm-sponsors-top-track{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  width:max-content!important;
+  min-width:100%!important;
+  animation:rmSponsorMoveReviewed 30s linear infinite!important;
+}
+@keyframes rmSponsorMoveReviewed{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#rmSponsorsTopCarousel .rm-top-sponsor-item{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  min-width:130px!important;
+  max-width:170px!important;
+  height:58px!important;
+  padding:6px 8px!important;
+  border-radius:14px!important;
+  background:rgba(0,8,18,.34)!important;
+  border:1px solid rgba(0,91,255,.34)!important;
+  flex:0 0 auto!important;
+}
+#rmSponsorsTopCarousel .rm-top-sponsor-item img{
+  max-width:76px!important;
+  max-height:42px!important;
+  width:auto!important;
+  height:auto!important;
+  object-fit:contain!important;
+  background:transparent!important;
+  filter:drop-shadow(0 0 6px rgba(0,0,0,.7))!important;
+}
+#rmSponsorsTopCarousel .rm-top-sponsor-item span{
+  color:#fff!important;
+  font-size:9px!important;
+  line-height:1.1!important;
+  font-weight:800!important;
+  max-width:76px!important;
+  overflow:hidden!important;
+  display:-webkit-box!important;
+  -webkit-line-clamp:2!important;
+  -webkit-box-orient:vertical!important;
+}
+#rmClubNumbersPanel.rm-club-numbers-panel{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  max-width:1180px!important;
+  margin:12px auto 14px auto!important;
+  padding:12px!important;
+  border-radius:18px!important;
+  background:linear-gradient(145deg,rgba(0,8,18,.86),rgba(0,91,255,.10))!important;
+  border:1px solid rgba(0,91,255,.38)!important;
+  box-shadow:0 0 18px rgba(0,91,255,.12)!important;
+  box-sizing:border-box!important;
+}
+#rmClubNumbersPanel .section-head{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  margin-bottom:10px!important;
+}
+#rmClubNumbersPanel .section-head h2{color:#f7d36b!important;text-transform:uppercase!important;margin:0!important;font-size:18px!important}
+#rmClubNumbersPanel .section-head p{margin:0!important;color:#fff!important;opacity:.82!important;font-size:12px!important}
+.rm-club-numbers-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(145px,1fr))!important;gap:9px!important}
+.rm-club-number-card{padding:10px!important;border-radius:14px!important;background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.10)!important}
+.rm-club-number-card span{display:block!important;color:#fff!important;opacity:.78!important;font-size:11px!important;font-weight:800!important;margin-bottom:4px!important}
+.rm-club-number-card strong{display:block!important;color:#f7d36b!important;font-size:17px!important;font-weight:900!important}
+#rmClubNumbersAdmin{display:block!important;margin:18px 0!important;padding:14px!important;border-radius:18px!important;background:rgba(0,8,18,.82)!important;border:1px solid rgba(0,91,255,.42)!important;box-shadow:0 0 18px rgba(0,91,255,.14)!important}
+#rmClubNumbersAdmin h2{color:#f7d36b!important;margin-top:0!important}
+.rm-admin-numbers-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))!important;gap:10px!important;margin:10px 0!important}
+.rm-admin-numbers-grid label{color:#fff!important;font-size:12px!important;font-weight:900!important;display:flex!important;flex-direction:column!important;gap:5px!important}
+.rm-admin-numbers-grid input{height:38px!important;border-radius:10px!important;border:1px solid rgba(0,91,255,.42)!important;background:rgba(0,0,0,.35)!important;color:#fff!important;padding:0 9px!important}
+#rmSaveClubNumbersBtn{border:0!important;border-radius:12px!important;padding:10px 14px!important;background:#005BFF!important;color:#fff!important;font-weight:900!important;cursor:pointer!important}
+@media(max-width:820px){
+  #rmSponsorsTopCarousel.rm-sponsors-top-carousel,#rmSponsorsTopCarousel.rm-carousel-visible-final,#rmSponsorsTopCarousel.rm-carousel-force-visible{
+    margin:10px 0 12px 0!important;
+    padding:9px!important;
+    min-height:78px!important;
+    border-radius:16px!important;
+  }
+  #rmSponsorsTopCarousel .rm-top-sponsor-item{min-width:108px!important;height:52px!important}
+  #rmSponsorsTopCarousel .rm-top-sponsor-item img{max-width:62px!important;max-height:36px!important}
+  #rmClubNumbersPanel .section-head{flex-direction:column!important;align-items:flex-start!important}
+  .rm-club-numbers-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .rm-admin-numbers-grid{grid-template-columns:1fr!important}
+}
+
+</style>
+<style id="rm-ngs-style">
+
+/* === RM NOTICIAS DESPLEGABLES + GALERIA POR SERIES === */
+.rm-old-news-hidden,.rm-old-gallery-hidden{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}
+#rmNewsAccordionSection,#rmGalleryFoldersSection{display:block!important;max-width:1180px!important;margin:14px auto!important;padding:12px!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(0,8,18,.86),rgba(0,91,255,.10))!important;border:1px solid rgba(0,91,255,.36)!important;box-shadow:0 0 18px rgba(0,91,255,.12)!important}
+.rm-accordion-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important}
+.rm-accordion-head h2,.rm-gallery-folder-head h2{margin:0!important;color:#f7d36b!important;text-transform:uppercase!important;font-size:20px!important}
+.rm-accordion-head p,.rm-gallery-folder-head p{margin:3px 0 0 0!important;color:#fff!important;opacity:.82!important;font-size:12px!important}
+.rm-toggle-news-btn,#rmBackFoldersBtn,#rmAddGalleryBySerie,#rmSaveGallerySeries,.rmDeleteGalleryItem{border:0!important;border-radius:999px!important;padding:10px 15px!important;background:#005BFF!important;color:#fff!important;font-weight:900!important;cursor:pointer!important;box-shadow:0 0 14px rgba(0,91,255,.35)!important}
+.rm-toggle-news-btn span{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:22px!important;height:22px!important;border-radius:50%!important;background:#f7d36b!important;color:#001133!important;margin-right:6px!important;font-size:18px!important}
+.rm-news-accordion-body{margin-top:12px!important}
+.rm-news-accordion-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))!important;gap:14px!important}
+.rm-news-accordion-card,.rm-folder-media-card{padding:10px!important;border-radius:16px!important;background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.10)!important;overflow:hidden!important}
+.rm-news-accordion-card img,.rm-news-no-img{width:100%!important;height:210px!important;object-fit:contain!important;object-position:center!important;border-radius:13px!important;background:rgba(0,8,18,.72)!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#f7d36b!important;font-weight:900!important;font-size:30px!important}
+.rm-news-text h3{margin:9px 0 5px!important;color:#f7d36b!important;font-size:16px!important}.rm-news-text p{margin:0!important;color:#fff!important;opacity:.9!important;font-size:12px!important;line-height:1.35!important}
+.rm-gallery-folder-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;gap:12px!important}
+.rm-serie-folder{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;min-height:145px!important;border-radius:18px!important;border:1px solid rgba(0,91,255,.42)!important;background:radial-gradient(circle at center,rgba(0,91,255,.16),rgba(0,8,18,.75))!important;color:#fff!important;cursor:pointer!important;box-shadow:0 0 16px rgba(0,91,255,.13)!important}
+.rm-serie-folder:hover{transform:translateY(-2px)!important;box-shadow:0 0 22px rgba(0,91,255,.28)!important}
+.rm-serie-folder img{width:58px!important;height:58px!important;object-fit:contain!important;border-radius:50%!important;background:rgba(255,255,255,.08)!important;padding:6px!important}
+.rm-serie-folder strong{color:#f7d36b!important;text-align:center!important;font-size:13px!important;text-transform:uppercase!important}.rm-serie-folder span{color:#fff!important;opacity:.82!important;font-size:11px!important}
+.rm-folder-open-head{display:flex!important;align-items:center!important;gap:12px!important;margin-bottom:12px!important}.rm-folder-open-head h3{color:#f7d36b!important;margin:0!important;text-transform:uppercase!important}
+.rm-folder-media-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))!important;gap:12px!important}
+.rm-folder-media-card img,.rm-folder-media-card video{width:100%!important;height:180px!important;object-fit:contain!important;border-radius:12px!important;background:#000!important}.rm-folder-media-card h4{margin:7px 0 0!important;color:#fff!important;font-size:12px!important}
+.rm-folder-media-card a{display:flex!important;align-items:center!important;justify-content:center!important;height:130px!important;border-radius:12px!important;background:rgba(0,91,255,.20)!important;color:#f7d36b!important;font-weight:900!important;text-decoration:none!important}
+.rm-empty-box{padding:14px!important;border-radius:14px!important;background:rgba(255,255,255,.06)!important;color:#fff!important}
+#rmGallerySeriesAdmin{margin:18px 0!important;padding:14px!important;border-radius:18px!important;background:rgba(0,8,18,.84)!important;border:1px solid rgba(0,91,255,.42)!important}#rmGallerySeriesAdmin h2{color:#f7d36b!important;margin-top:0!important}
+.rm-admin-add-gallery{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;gap:8px!important;margin-bottom:14px!important}
+.rm-admin-add-gallery input,.rm-admin-add-gallery select,.rm-gallery-series-row input,.rm-gallery-series-row select{height:38px!important;border-radius:10px!important;border:1px solid rgba(0,91,255,.42)!important;background:rgba(0,0,0,.35)!important;color:#fff!important;padding:0 8px!important}
+.rm-gallery-series-rows{display:grid!important;gap:8px!important;margin-bottom:12px!important}.rm-gallery-series-row{display:grid!important;grid-template-columns:54px 1fr 170px auto!important;gap:8px!important;align-items:center!important}
+.rm-mini-preview{width:54px!important;height:42px!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:9px!important;background:rgba(255,255,255,.08)!important;color:#f7d36b!important;font-size:10px!important;overflow:hidden!important}.rm-mini-preview img{width:100%!important;height:100%!important;object-fit:cover!important}.rmDeleteGalleryItem{background:#8a1f1f!important}
+@media(max-width:760px){.rm-accordion-head{flex-direction:column!important;align-items:flex-start!important}.rm-news-accordion-grid,.rm-folder-media-grid{grid-template-columns:1fr!important}.rm-gallery-series-row{grid-template-columns:1fr!important}}
+
+</style>
+<link rel="stylesheet" href="rm-final-polish.css?v=estetica_anterior_perf_20260624">
+
+<style id="rm-admin-presidents-clear-style">
+#tab-presidents .admin-help{color:#cfd8e8;line-height:1.4;margin:0 0 12px}
+#tab-presidents label{display:block;color:#f7d36b;font-weight:800;margin:11px 0 5px}
+#tab-presidents input{width:100%;box-sizing:border-box}
+#tab-presidents #addPresident{margin-top:12px}
+</style>
+
+<link rel="stylesheet" href="rm-player-highlights-admin.css?v=destacados_20260624">
+<link rel="stylesheet" href="rm-admin-galeria-simple.css?v=galeria_simple_20260625">
+</head>
+<body class="admin-body"><div class="bg"></div><main class="admin-main">
+<section id="loginPanel" class="login"><h1>Panel administrador</h1><p>Acceso privado. Ingresa la clave.</p><input id="adminPassword" type="password" placeholder="Clave de administrador"><button id="loginBtn">Ingresar</button></section>
+<section id="adminPanel" class="admin-panel hidden"><h1>Panel Administrador</h1><p id="statusLine" class="status">Estado: pendiente.</p>
+<div class="tabs">
+<button data-tab="tab-supabase" class="active">Supabase</button><button data-tab="tab-general">General</button><button data-tab="tab-match">Próximo partido</button><button data-tab="tab-history">Historia</button><button data-tab="tab-directors">Directiva</button><button data-tab="tab-presidents">Presidentes</button><button data-tab="tab-results">Resultados</button><button data-tab="tab-news">Noticias</button><button data-tab="tab-gallery">Galería</button><button data-tab="tab-fixture">Fixture</button><button data-tab="tab-standings">Puntajes</button><button data-tab="tab-sponsors">Auspiciadores</button><button data-tab="tab-backup">Respaldo</button>
+<button data-tab="tab-appearance">Apariencia</button></div>
+<div class="tab-content" id="tab-supabase"><h2>Conexión Supabase</h2><label>Project URL</label><input id="supabaseUrl" placeholder="https://xxxxx.supabase.co"><label>Publishable Key</label><input id="supabaseKey" placeholder="sb_publishable_..."><button id="saveSupabase">Guardar conexión Supabase</button><button id="loadCloud">Cargar datos desde Supabase</button><button id="saveCloud">Subir datos actuales a Supabase</button></div>
+<div class="tab-content hidden" id="tab-general">
+
+<div class="admin-card admin-pro-extra">
+  <h3>🏆 Historial de campeonatos</h3>
+  <label>Año</label><input id="champYear" placeholder="Ej: 2026">
+  <label>Campeonato</label><input id="champName" placeholder="Ej: ANFA San Carlos">
+  <label>Categoría / Serie</label><input id="champCategory" placeholder="Ej: Honor">
+  <button id="addChampionship" type="button">Agregar campeonato</button>
+  <div id="championshipsAdminList"></div>
+</div>
+
+<div class="admin-card admin-pro-extra">
+  <h3>📺 Configuración Modo TV / Socios</h3>
+  <label>WhatsApp solicitudes de socio</label><input id="memberWhatsappInput" placeholder="569XXXXXXXX">
+  <button id="saveProSettings" type="button">Guardar configuración profesional</button>
+</div>
+
+<div class="admin-card admin-extra-general"><h3>🏆 Texto campeonatos y aniversario</h3><label>Texto donde dice Campeonatos</label><input id="metricTitlesLabel" placeholder="Ej: Campeonatos / Copas / Palmarés"><label>Fecha aniversario</label><input id="anniversaryDateInput" placeholder="Ej: 12/08/2026"><label>Años que cumple la institución</label><input id="anniversaryYearsInput" placeholder="Ej: 94 años"></div><h2>General</h2><label>Título portada</label><input id="homeTitle">
+<label>WhatsApp oficial</label><input id="siteWhatsapp" placeholder="569...">
+<label>Instagram URL</label><input id="siteInstagram" placeholder="https://instagram.com/...">
+<label>Facebook URL</label><input id="siteFacebook" placeholder="https://facebook.com/...">
+<label>Color principal</label><input id="siteColorBlue" placeholder="#00c8ff">
+<label>Color dorado</label><input id="siteColorGold" placeholder="#f7d36b"><label>Texto portada</label><textarea id="homeIntroInput"></textarea><label>Socios activos</label><input id="metricMembers"><label>Campeonatos</label><input id="metricTitles"><button id="saveGeneral">Guardar general</button></div>
+<div class="tab-content hidden" id="tab-match"><h2>Próximo partido</h2><input id="matchRival" placeholder="Rival">
+<input id="matchTournament" placeholder="Campeonato / Fecha">
+<input id="matchReferee" placeholder="Árbitro">
+<input id="matchBroadcast" placeholder="Transmisión / Link"><input id="matchDate" placeholder="Día y hora"><input id="matchPlace" placeholder="Lugar"><input id="matchLogoUrl" placeholder="URL logo rival"><input id="matchLogoFile" type="file" accept="image/*"><button id="saveMatch">Guardar partido</button></div>
+<div class="tab-content hidden" id="tab-history"><h2>Historia</h2><textarea id="historyText" placeholder="Historia del club"></textarea><input id="presidentName" placeholder="Presidente actual"><input id="historyPhoto" type="file" accept="image/*"><button id="saveHistory">Guardar historia</button></div>
+<div class="tab-content hidden" id="tab-directors"><h2>Directiva</h2><input id="directorRole" placeholder="Cargo"><input id="directorName" placeholder="Nombre"><button id="addDirector">Agregar</button><div id="directorsList"></div></div>
+<div class="tab-content hidden" id="tab-presidents">
+  <h2>Presidentes Históricos</h2>
+  <p class="admin-help">Carga una fotografía, el nombre y el año o período de presidencia. Al guardar, aparecerá en la página pública.</p>
+  <label>Nombre completo del presidente</label>
+  <input id="presidentGalleryName" placeholder="Ej: Juan Pérez">
+  <label>Año o período de presidencia</label>
+  <input id="presidentPeriod" placeholder="Ej: 1998 - 2002">
+  <label>Fotografía del presidente</label>
+  <input id="presidentPhoto" type="file" accept="image/*">
+  <button id="addPresident" type="button">Guardar presidente histórico</button>
+  <div id="presidentsList"></div>
+</div>
+<div class="tab-content hidden" id="tab-results">
+
+<div class="admin-card results-warning-box">
+  <h3>⚠️ Resultados no es Puntajes</h3>
+  <p>Las tablas de posiciones se cargan solo en PUNTAJES. Aquí solo deben ir marcadores reales de partidos.</p>
+</div>
+
+
+<div class="admin-card excel-results-box">
+  <h3>🧹 Limpieza definitiva de Resultados</h3>
+  <p>Elimina desde Supabase cualquier fila de puntajes que esté apareciendo por error en Últimos Resultados.</p>
+  <button id="limpiarResultsDefinitivo" type="button">Limpiar Resultados Definitivamente</button>
+</div>
+
+
+<div class="admin-card excel-results-box">
+  <h3>🧹 Limpiar tabla Results en Supabase</h3>
+  <p>Si la planilla de puntajes apareció en Últimos Resultados, este botón elimina esos registros desde Supabase.</p>
+  <button id="cleanSupabaseResults" type="button">Limpiar Results de Supabase</button>
+</div>
+
+
+<div class="admin-card excel-results-box">
+  <h3>🧹 Limpiar Resultados</h3>
+  <p>Usa este botón si una planilla de puntajes apareció por error en Últimos Resultados.</p>
+  <button id="cleanWrongResults" type="button">Limpiar resultados mal cargados</button>
+</div>
+
+
+<div class="admin-card excel-results-box">
+  <h3>📊 Cargar resultados desde Excel</h3>
+  <p>Formato recomendado: Fecha | Partido | Resultado | Goleadores. También acepta las primeras 4 columnas aunque tengan otros nombres.</p>
+  <input id="resultsExcelFile" type="file" accept=".xlsx,.xls,.csv">
+  <button id="importResultsExcel" type="button">Cargar Excel a Resultados</button>
+</div>
+<h2>Resultados</h2><input id="resultDate" placeholder="Fecha"><input id="resultMatch" placeholder="Partido"><input id="resultScore" placeholder="Marcador"><button id="addResult">Agregar resultado</button><div id="resultsList"></div></div>
+<div class="tab-content hidden" id="tab-news"><h2>Noticias</h2><input id="newsTitle" placeholder="Título"><textarea id="newsText" placeholder="Texto"></textarea><input id="newsImage" type="file" accept="image/*"><button id="addNews">Agregar noticia</button><div id="newsList"></div></div>
+<div class="tab-content hidden" id="tab-gallery"><h2>Galería</h2><input id="mediaTitle" placeholder="Título"><input id="mediaFile" type="file" accept="image/*,video/*"><input id="mediaUrl" placeholder="URL video o imagen"><button id="addMedia">Agregar</button><div id="galleryList"></div></div>
+<div class="tab-content hidden" id="tab-fixture"><h2>Fixture del club</h2><input id="fixtureTitle" placeholder="Título fecha"><input id="fixtureImage" type="file" accept="image/*"><button id="addFixture">Agregar imagen fixture</button><div id="fixtureList"></div></div>
+<div class="tab-content hidden" id="tab-standings">
+
+<div class="admin-card accumulated-excel-box">
+  <h3>📊 Cargar Excel Tabla Acumulada General x Club x Club</h3>
+  <p>Columnas recomendadas: Club | Series | PJ | G | E | P | GF | GC | DG | PTS. También acepta las primeras 6 columnas.</p>
+  <input id="accumulatedExcelFile" type="file" accept=".xlsx,.xls,.csv">
+  <button id="importAccumulatedExcel" type="button">Cargar Excel Tabla Acumulada General x Club</button>
+</div>
+
+
+<div class="admin-card excel-results-box">
+  <h3>🏆 Cargar tablas oficiales Fecha 7</h3>
+  <p>Carga las tablas reales por serie en Puntajes/Posiciones. No se guardan en Resultados.</p>
+  <button id="loadOfficialStandingsFecha7" type="button">Cargar tablas oficiales Fecha 7</button>
+</div>
+
+
+<div class="admin-card excel-results-box">
+  <h3>📊 Cargar planilla de puntajes</h3>
+  <p>Usa la planilla oficial con columnas: Serie | PJ | G | E | P | GF | GC | DF | PTS.</p>
+  <input id="standingsExcelFile" type="file" accept=".xlsx,.xls,.csv">
+  <button id="importStandingsExcel" type="button">Cargar Excel a Puntajes</button>
+</div>
+<h2>Puntajes por serie</h2><select id="standingSerie"></select><input id="teamName" placeholder="Equipo"><input id="pj" placeholder="J"><input id="pg" placeholder="G"><input id="pe" placeholder="E"><input id="pp" placeholder="P"><input id="gf" placeholder="GF"><input id="gc" placeholder="GC"><input id="pts" placeholder="PTS"><button id="addStanding">Agregar equipo</button><div id="standingsList"></div></div>
+<div class="tab-content hidden" id="tab-sponsors"><h2>Auspiciadores</h2><input id="sponsorName" placeholder="Nombre auspiciador"><input id="sponsorFile" type="file" accept="image/*"><input id="sponsorUrl" placeholder="URL logo"><button id="addSponsor">Agregar auspiciador</button><button id="loadOptimizedSponsors" type="button">Cargar auspiciadores optimizados</button><div id="sponsorsList"></div></div>
+<div class="tab-content hidden" id="tab-backup">
+
+<div class="admin-card final-deep-audit-box">
+  <h3>🔍 Revisión profunda final</h3>
+  <p>Separa definitivamente Puntajes de Resultados, limpia duplicados y elimina datos mal cargados desde Supabase.</p>
+  <button id="finalDeepAuditClean" type="button">Ejecutar limpieza profunda final</button>
+</div>
+
+
+<div class="admin-card final-tools-box">
+  <h3>🛡️ Herramientas finales</h3>
+  <p>Usa estas opciones antes de publicar o cuando quieras limpiar datos duplicados.</p>
+  <button id="finalCleanData" type="button">Limpiar duplicados y ordenar datos</button>
+  <button id="finalExportBackup" type="button">Descargar respaldo JSON</button>
+  <button id="finalForceSaveCloud" type="button">Guardar todo en Supabase</button>
+</div>
+<h2>Respaldo</h2><button id="exportBackup">Descargar respaldo JSON</button><input id="importBackup" type="file" accept="application/json"><button id="restoreCloudBackup" type="button">Restaurar respaldo local a Supabase</button></div>
+</section></main><script>window.CDRM_DEFAULT_SPONSORS=[{"name": "SAN PATRICIO MINIMARKET & BOTILLERÍA", "url": "sponsor_01.png"}, {"name": "GPS RUTA", "url": "sponsor_02.png"}, {"name": "RESTAURANT EL CARIBE", "url": "sponsor_03.png"}, {"name": "CONSTRUCTORA VENEGAS PRADENAS", "url": "sponsor_04.png"}, {"name": "CONSTRUCTORA BELTRÁN", "url": "sponsor_05.png"}, {"name": "FERRETERÍA PARRALITO", "url": "sponsor_06.png"}, {"name": "ARRIENDO DE MAQUINARIAS MENORES V&V SPA", "url": "sponsor_07.png"}, {"name": "DISTRIBUIDORA LA MAQUILA", "url": "sponsor_08.png"}, {"name": "RESTAURANT LA CASERITA", "url": "sponsor_09.png"}, {"name": "EL MAESTRO DE LA PARRILLA JUAN CRIOLLO", "url": "sponsor_10.png"}, {"name": "PEÑAFRUT", "url": "sponsor_11.png"}, {"name": "FUTBAR PITU", "url": "sponsor_12.png"}, {"name": "LA ESPIGA DE ORO", "url": "sponsor_13.png"}, {"name": "COMPLEJO EL CASTAÑO", "url": "sponsor_14.png"}, {"name": "CASCADAS DE ÑUBLE", "url": "sponsor_15.png"}, {"name": "MAOR", "url": "sponsor_16.png"}, {"name": "DON LUCHITO CECINAS", "url": "sponsor_17.png"}];window.CDRM_LOGO="logo_ricardo_mendez.png";</script>
+<section id="tab-appearance" class="tab-content hidden">
+  <h2>🏟️ Apariencia del sitio</h2>
+  <div class="admin-card">
+    <h3>Fondo principal</h3>
+    <p>Carga una imagen de estadio o fondo institucional. Se guardará en Supabase Storage / club-assets.</p>
+    <input id="backgroundUrl" placeholder="URL de fondo actual">
+    <input id="backgroundFile" type="file" accept="image/*">
+    <div id="backgroundPreview" class="background-preview-admin"></div>
+    <button id="saveBackground" type="button">Guardar fondo</button>
+    <button id="restoreBackground" type="button">Restaurar fondo predeterminado</button>
+  </div>
+  <div class="admin-card">
+    <h3>Colores corporativos</h3>
+    <label>Azul eléctrico</label>
+    <input id="appearanceBlue" type="color" value="#00c8ff">
+    <label>Dorado</label>
+    <input id="appearanceGold" type="color" value="#f7d36b">
+    <label>Oscurecimiento del fondo</label>
+    <input id="backgroundOverlay" type="range" min="0" max="80" value="35">
+    <span id="backgroundOverlayValue">35%</span>
+    <button id="saveAppearanceColors" type="button">Guardar colores</button>
+  </div>
+  <div class="admin-card">
+    <h3>Temas rápidos</h3>
+    <button class="themePreset" data-theme="adidas" type="button">Adidas Pro</button>
+    <button class="themePreset" data-theme="nike" type="button">Nike Elite</button>
+    <button class="themePreset" data-theme="classic" type="button">Ricardo Méndez Clásico</button>
+  </div>
+</section>
+
+<script src="admin.js?v=destacados_20260624"></script>
+<script id="rm-final-carousel-numbers-script">
+
+/* FIX FINAL CARRUSEL SIEMPRE VISIBLE + CLUB EN NUMEROS EDITABLE */
+(function(){
+  if(window.__RM_FIX_CARRUSEL_NUMEROS_EDITABLE_FINAL__) return;
+  window.__RM_FIX_CARRUSEL_NUMEROS_EDITABLE_FINAL__ = true;
+  const RM_URL = "https://xzcbdyabzgwfoylipgco.supabase.co";
+  const RM_KEY = "sb_publishable_rFYVLbY_0uJvOLJ0jftWzw_jsmNwVkl";
+  const DATA_KEYS=['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data'];
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function main(){return document.querySelector('main')||document.querySelector('#app')||document.body;}
+  function getDataSafe(){
+    try{ if(typeof getData==='function') return getData()||{}; }catch(e){}
+    for(const k of DATA_KEYS){try{const r=localStorage.getItem(k); if(r) return JSON.parse(r);}catch(e){}}
+    return window.RM_DATA||window.clubData||{};
+  }
+  function saveDataSafe(d){
+    try{ if(typeof saveData==='function') saveData(d); }catch(e){}
+    for(const k of DATA_KEYS){try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}}
+    try{window.RM_DATA=d; window.clubData=d;}catch(e){}
+  }
+  async function restSelect(table){
+    try{
+      const r=await fetch(RM_URL.replace(/\/$/,'')+'/rest/v1/'+table+'?select=*',{headers:{apikey:RM_KEY,Authorization:'Bearer '+RM_KEY}});
+      if(!r.ok) return [];
+      const j=await r.json(); return Array.isArray(j)?j:[];
+    }catch(e){return []}
+  }
+  async function restUpsertSettings(settings){
+    try{
+      const rows=await restSelect('settings');
+      const payload=Object.assign({},rows&&rows[0]?rows[0]:{},settings);
+      if(payload.id==null && rows&&rows[0]&&rows[0].id!=null) payload.id=rows[0].id;
+      const r=await fetch(RM_URL.replace(/\/$/,'')+'/rest/v1/settings',{method:'POST',headers:{apikey:RM_KEY,Authorization:'Bearer '+RM_KEY,'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(payload)});
+      return r.ok;
+    }catch(e){return false}
+  }
+  function urlOf(o){return (o&&(o.url||o.logo||o.image||o.image_url||o.imageUrl||o.img||o.photo||o.foto||o.src||o.file_url||o.publicUrl||o.public_url))||'';}
+  function nameOf(o){return (o&&(o.name||o.nombre||o.title||o.titulo||o.empresa||o.business))||'Auspiciador';}
+  function goodSponsor(u){u=String(u||'').toLowerCase(); return !!u && !u.includes('logo_ricardo_mendez') && !u.includes('favicon') && !u.includes('escudo') && !u.includes('/news/') && !u.includes('/noticias/') && !u.includes('noticia');}
+  async function sponsorsStrict(){
+    const d=getDataSafe(); let arr=[];
+    if(Array.isArray(d.sponsors)) arr=arr.concat(d.sponsors);
+    if(Array.isArray(d.auspiciadores)) arr=arr.concat(d.auspiciadores);
+    if(d.settings && Array.isArray(d.settings.sponsors)) arr=arr.concat(d.settings.sponsors);
+    if(!arr.length){ const r=await restSelect('sponsors'); if(r.length){arr=r; d.sponsors=r; saveDataSafe(d);} }
+    const seen=new Set();
+    return arr.map(s=>({name:nameOf(s),url:urlOf(s)})).filter(s=>{if(!goodSponsor(s.url)||seen.has(s.url))return false; seen.add(s.url); return true;});
+  }
+  function forceShow(el){
+    if(!el)return; el.hidden=false;
+    el.classList.remove('rm-hide-non-final-sponsors','hide-duplicate-sponsors','rm-sponsor-carousel-hidden','rm-info-cargada-hidden');
+    el.classList.add('rm-carousel-force-visible');
+    el.style.display='block'; el.style.visibility='visible'; el.style.opacity='1'; el.style.position='relative'; el.style.zIndex='999'; el.style.height='auto'; el.style.minHeight='86px'; el.style.maxHeight='none'; el.style.overflow='hidden';
+  }
+  async function renderTopCarousel(){
+    const sponsors=await sponsorsStrict();
+    let c=document.getElementById('rmSponsorsTopCarousel');
+    if(!c){c=document.createElement('section'); c.id='rmSponsorsTopCarousel';}
+    c.className='section rm-sponsors-top-carousel rm-carousel-force-visible';
+    c.innerHTML='<div class="rm-sponsors-top-title"><strong>Auspiciadores oficiales</strong><span>Carrusel superior</span></div><div id="rmSponsorsTopTrack" class="rm-sponsors-top-track"></div>';
+    const track=c.querySelector('#rmSponsorsTopTrack');
+    if(!sponsors.length) track.innerHTML='<div class="rm-top-sponsor-item rm-top-sponsor-empty"><span>Auspiciadores pendientes de cargar desde Admin</span></div>';
+    else track.innerHTML=sponsors.concat(sponsors,sponsors).map(s=>'<div class="rm-top-sponsor-item"><img src="'+esc(s.url)+'" alt="'+esc(s.name)+'" loading="lazy"><span>'+esc(s.name)+'</span></div>').join('');
+    const enhanced=document.getElementById('rmEnhancedTopSection');
+    const history=document.getElementById('historyPrincipalSection')||document.querySelector('.history-principal-section');
+    if(enhanced&&enhanced.parentElement) enhanced.insertAdjacentElement('afterend',c);
+    else if(history&&history.parentElement) history.parentElement.insertBefore(c,history);
+    else main().insertBefore(c,main().firstChild);
+    forceShow(c);
+    document.querySelectorAll('.sponsors-marquee,.sponsors-track,.sponsors-carousel,.sponsors-slider,#sponsorTicker').forEach(e=>{if(!e.closest('#rmSponsorsTopCarousel')) e.style.display='none';});
+  }
+  function numbersData(){
+    const d=getDataSafe(); d.settings=d.settings||{}; const s=d.settings;
+    return {fundacion:s.foundationDate||s.fundacion||s.foundation||'12/08/1932',aniversario:s.anniversary||s.aniversario||'',series:s.series||s.seriesCount||s.totalSeries||'',socios:s.activeMembers||s.socios||s.members||'',campeonato:s.championship||s.campeonato||s.tournament||'',jugadores:s.registeredPlayers||s.jugadoresInscritos||s.players||''};
+  }
+  function renderNumbersPublic(){
+    const n=numbersData(); let p=document.getElementById('rmClubNumbersPanel');
+    if(!p){p=document.createElement('section'); p.id='rmClubNumbersPanel';}
+    p.className='section rm-club-numbers-panel';
+    p.innerHTML='<div class="section-head"><h2>Club en números</h2><p>Datos editables desde Admin</p></div><div class="rm-club-numbers-grid">'+
+      [['Fundación',n.fundacion],['Aniversario',n.aniversario||'Editable'],['Series',n.series||'0'],['Socios',n.socios||'0'],['Campeonato',n.campeonato||'Editable'],['Jugadores inscritos',n.jugadores||'0']].map(x=>'<div class="rm-club-number-card"><span>'+esc(x[0])+'</span><strong>'+esc(x[1])+'</strong></div>').join('')+'</div>';
+    const car=document.getElementById('rmSponsorsTopCarousel'); const next=document.getElementById('rmNextMatchPanel')||document.querySelector('[id*="nextMatch"],[id*="proximo"],.rm-next-match-panel,.proximo-partido');
+    if(car&&car.parentElement) car.insertAdjacentElement('afterend',p); else if(next) (next.closest('section,.section,.panel,.card')||next).insertAdjacentElement('afterend',p); else main().insertBefore(p,main().firstChild);
+    p.style.display='block'; p.style.visibility='visible';
+  }
+  function adminEditor(){
+    if(!/admin/i.test(location.pathname)&&!document.querySelector('.admin,.admin-panel,#adminPanel'))return;
+    if(document.getElementById('rmClubNumbersAdmin'))return;
+    const n=numbersData(); const host=document.querySelector('main')||document.body;
+    const b=document.createElement('section'); b.id='rmClubNumbersAdmin'; b.className='admin-card rm-club-numbers-admin';
+    b.innerHTML='<h2>Club en números</h2><p>Edita el panel público Club en números.</p><div class="rm-admin-numbers-grid">'+
+      '<label>Fundación<input id="rmAdminFundacion" value="'+esc(n.fundacion)+'" placeholder="12/08/1932"></label>'+
+      '<label>Aniversario<input id="rmAdminAniversario" value="'+esc(n.aniversario)+'" placeholder="94 años"></label>'+
+      '<label>Series<input id="rmAdminSeries" value="'+esc(n.series)+'" placeholder="11"></label>'+
+      '<label>Socios<input id="rmAdminSocios" value="'+esc(n.socios)+'" placeholder="150"></label>'+
+      '<label>Campeonato<input id="rmAdminCampeonato" value="'+esc(n.campeonato)+'" placeholder="Campeonato 2026"></label>'+
+      '<label>Jugadores inscritos<input id="rmAdminJugadores" value="'+esc(n.jugadores)+'" placeholder="120"></label>'+
+      '</div><button type="button" id="rmSaveClubNumbersBtn">Guardar Club en números</button>';
+    host.appendChild(b);
+    document.getElementById('rmSaveClubNumbersBtn').addEventListener('click',async()=>{
+      const d=getDataSafe(); d.settings=d.settings||{};
+      d.settings.foundationDate=document.getElementById('rmAdminFundacion').value.trim(); d.settings.fundacion=d.settings.foundationDate;
+      d.settings.anniversary=document.getElementById('rmAdminAniversario').value.trim(); d.settings.aniversario=d.settings.anniversary;
+      d.settings.series=document.getElementById('rmAdminSeries').value.trim(); d.settings.seriesCount=d.settings.series;
+      d.settings.activeMembers=document.getElementById('rmAdminSocios').value.trim(); d.settings.socios=d.settings.activeMembers;
+      d.settings.championship=document.getElementById('rmAdminCampeonato').value.trim(); d.settings.campeonato=d.settings.championship;
+      d.settings.registeredPlayers=document.getElementById('rmAdminJugadores').value.trim(); d.settings.jugadoresInscritos=d.settings.registeredPlayers;
+      saveDataSafe(d); try{if(typeof pushCloud==='function') await pushCloud();}catch(e){} try{await restUpsertSettings(d.settings);}catch(e){} renderNumbersPublic(); alert('Club en números guardado.');
+    });
+  }
+  function keepResultsBeforeHistory(){const p=document.getElementById('rmCompactResultsPanel'), h=document.getElementById('historyPrincipalSection')||document.querySelector('.history-principal-section'); if(p&&h&&h.parentElement){h.parentElement.insertBefore(p,h); p.style.display='block'; p.style.visibility='visible';}}
+  async function run(){await renderTopCarousel(); renderNumbersPublic(); adminEditor(); keepResultsBeforeHistory(); setTimeout(async()=>{await renderTopCarousel(); renderNumbersPublic(); keepResultsBeforeHistory();},1000); setTimeout(async()=>{await renderTopCarousel(); renderNumbersPublic(); keepResultsBeforeHistory();},3000);}
+  if(typeof renderPublic==='function'){const old=renderPublic; renderPublic=function(){const r=old.apply(this,arguments); setTimeout(run,120); setTimeout(run,1400); return r;};}
+  document.addEventListener('DOMContentLoaded',()=>{setTimeout(run,120); setTimeout(run,1400); setTimeout(run,3200); setTimeout(run,6500); try{new MutationObserver(()=>{clearTimeout(window.__rmCarrObs); window.__rmCarrObs=setTimeout(run,220);}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','style','hidden']});}catch(e){}});
+  document.addEventListener('rm:supabase-mobile-loaded',()=>{setTimeout(run,150); setTimeout(run,1200);}); window.addEventListener('pageshow',()=>setTimeout(run,250));
+  window.rmFixCarruselClubNumerosAdmin=run;
+})();
+
+</script>
+<script id="rm-revision-ok-carousel-numbers-script">
+
+/* =========================================================
+   REVISION OK CARRUSEL + CLUB EN NUMEROS ADMIN
+   Revisión aplicada al ZIP subido.
+========================================================= */
+(function(){
+  if(window.__RM_REVISION_OK_CARRUSEL_NUMEROS_ADMIN__) return;
+  window.__RM_REVISION_OK_CARRUSEL_NUMEROS_ADMIN__ = true;
+
+  var RM_SUPABASE_URL = "https://xzcbdyabzgwfoylipgco.supabase.co";
+  var RM_SUPABASE_KEY = "sb_publishable_rFYVLbY_0uJvOLJ0jftWzw_jsmNwVkl";
+
+  function esc(v){
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function(m){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+    });
+  }
+
+  function main(){
+    return document.querySelector('main') || document.querySelector('#app') || document.body;
+  }
+
+  function getDataSafe(){
+    try{ if(typeof getData === 'function') return getData() || {}; }catch(e){}
+    var keys = ['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data'];
+    for(var i=0;i<keys.length;i++){
+      try{
+        var raw = localStorage.getItem(keys[i]);
+        if(raw) return JSON.parse(raw);
+      }catch(e){}
+    }
+    return window.RM_DATA || window.clubData || {};
+  }
+
+  function saveDataSafe(d){
+    try{ if(typeof saveData === 'function') saveData(d); }catch(e){}
+    ['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data'].forEach(function(k){
+      try{ localStorage.setItem(k, JSON.stringify(d)); }catch(e){}
+    });
+    try{ window.RM_DATA = d; window.clubData = d; }catch(e){}
+  }
+
+  async function restSelect(table){
+    try{
+      var res = await fetch(RM_SUPABASE_URL.replace(/\/$/,'') + '/rest/v1/' + table + '?select=*', {
+        headers: { apikey: RM_SUPABASE_KEY, Authorization: 'Bearer ' + RM_SUPABASE_KEY }
+      });
+      if(!res.ok) return [];
+      var data = await res.json();
+      return Array.isArray(data) ? data : [];
+    }catch(e){ return []; }
+  }
+
+  async function restUpsertSettings(settings){
+    try{
+      var rows = await restSelect('settings');
+      var row = rows && rows[0] ? rows[0] : {};
+      var payload = Object.assign({}, row, settings);
+      if(row.id != null) payload.id = row.id;
+      var res = await fetch(RM_SUPABASE_URL.replace(/\/$/,'') + '/rest/v1/settings', {
+        method:'POST',
+        headers:{
+          apikey:RM_SUPABASE_KEY,
+          Authorization:'Bearer '+RM_SUPABASE_KEY,
+          'Content-Type':'application/json',
+          Prefer:'resolution=merge-duplicates,return=minimal'
+        },
+        body:JSON.stringify(payload)
+      });
+      return res.ok;
+    }catch(e){ return false; }
+  }
+
+  function urlOf(o){
+    return (o && (o.url || o.logo || o.image || o.image_url || o.imageUrl || o.img || o.photo || o.foto || o.src || o.file_url || o.publicUrl || o.public_url)) || '';
+  }
+
+  function nameOf(o){
+    return (o && (o.name || o.nombre || o.title || o.titulo || o.empresa || o.business)) || 'Auspiciador';
+  }
+
+  function validSponsorUrl(u){
+    u = String(u || '').toLowerCase();
+    if(!u) return false;
+    if(u.includes('logo_ricardo_mendez') || u.includes('favicon') || u.includes('escudo')) return false;
+    if(u.includes('/news/') || u.includes('/noticias/') || u.includes('noticia')) return false;
+    return true;
+  }
+
+  async function getSponsorsStrict(){
+    var d = getDataSafe();
+    var arr = [];
+    if(Array.isArray(d.sponsors)) arr = arr.concat(d.sponsors);
+    if(Array.isArray(d.auspiciadores)) arr = arr.concat(d.auspiciadores);
+    if(d.settings && Array.isArray(d.settings.sponsors)) arr = arr.concat(d.settings.sponsors);
+    if(!arr.length){
+      var remote = await restSelect('sponsors');
+      if(remote.length){
+        arr = remote;
+        d.sponsors = remote;
+        saveDataSafe(d);
+      }
+    }
+    var seen = new Set();
+    return arr.map(function(s){ return {name:nameOf(s), url:urlOf(s)}; }).filter(function(s){
+      if(!validSponsorUrl(s.url)) return false;
+      if(seen.has(s.url)) return false;
+      seen.add(s.url);
+      return true;
+    });
+  }
+
+  function forceShow(el){
+    if(!el) return;
+    el.classList.remove('rm-hide-non-final-sponsors','hide-duplicate-sponsors','rm-sponsor-carousel-hidden','rm-info-cargada-hidden');
+    el.hidden = false;
+    el.style.setProperty('display','block','important');
+    el.style.setProperty('visibility','visible','important');
+    el.style.setProperty('opacity','1','important');
+    el.style.setProperty('height','auto','important');
+    el.style.setProperty('min-height','86px','important');
+    el.style.setProperty('max-height','none','important');
+    el.style.setProperty('overflow','hidden','important');
+  }
+
+  async function renderTopCarousel(){
+    var sponsors = await getSponsorsStrict();
+    var carousel = document.getElementById('rmSponsorsTopCarousel');
+    if(!carousel){
+      carousel = document.createElement('section');
+      carousel.id = 'rmSponsorsTopCarousel';
+      carousel.className = 'section rm-sponsors-top-carousel rm-carousel-force-visible';
+    }
+    carousel.classList.add('rm-sponsors-top-carousel','rm-carousel-force-visible','rm-carousel-visible-final');
+    carousel.innerHTML =
+      '<div class="rm-sponsors-top-title"><strong>Auspiciadores oficiales</strong><span>Carrusel superior</span></div>' +
+      '<div id="rmSponsorsTopTrack" class="rm-sponsors-top-track"></div>';
+
+    var track = carousel.querySelector('#rmSponsorsTopTrack');
+    if(!sponsors.length){
+      track.innerHTML = '<div class="rm-top-sponsor-item rm-top-sponsor-empty"><span>Auspiciadores pendientes de cargar desde Admin</span></div>';
+    }else{
+      var list = sponsors.concat(sponsors).concat(sponsors);
+      track.innerHTML = list.map(function(s){
+        return '<div class="rm-top-sponsor-item"><img src="'+esc(s.url)+'" alt="'+esc(s.name)+'" loading="lazy"><span>'+esc(s.name)+'</span></div>';
+      }).join('');
+    }
+
+    var enhanced = document.getElementById('rmEnhancedTopSection');
+    var history = document.getElementById('historyPrincipalSection') || document.querySelector('.history-principal-section');
+    if(enhanced && enhanced.parentElement) enhanced.insertAdjacentElement('afterend', carousel);
+    else if(history && history.parentElement) history.parentElement.insertBefore(carousel, history);
+    else main().insertBefore(carousel, main().firstChild);
+
+    forceShow(carousel);
+    carousel.style.setProperty('position','relative','important');
+    carousel.style.setProperty('z-index','999','important');
+    carousel.style.setProperty('margin','12px auto 14px auto','important');
+    carousel.style.setProperty('clear','both','important');
+
+    // Hide only old duplicate sponsor tracks, not this carousel.
+    document.querySelectorAll('.sponsors-marquee,.sponsors-track,.sponsors-carousel,.sponsors-slider,#sponsorTicker').forEach(function(el){
+      if(el.closest('#rmSponsorsTopCarousel')) return;
+      el.style.setProperty('display','none','important');
+    });
+  }
+
+  function numbersData(){
+    var d = getDataSafe(); d.settings = d.settings || {};
+    var s = d.settings;
+    return {
+      fundacion: s.foundationDate || s.fundacion || s.foundation || '12/08/1932',
+      aniversario: s.anniversary || s.aniversario || '',
+      series: s.series || s.seriesCount || s.totalSeries || '',
+      socios: s.activeMembers || s.socios || s.members || '',
+      campeonato: s.championship || s.campeonato || s.tournament || '',
+      jugadores: s.registeredPlayers || s.jugadoresInscritos || s.players || ''
+    };
+  }
+
+  function renderNumbersPublic(){
+    var n = numbersData();
+    var panel = document.getElementById('rmClubNumbersPanel');
+    if(!panel){
+      panel = document.createElement('section');
+      panel.id = 'rmClubNumbersPanel';
+      panel.className = 'section rm-club-numbers-panel';
+    }
+    panel.innerHTML =
+      '<div class="section-head"><h2>Club en números</h2><p>Datos editables desde Admin</p></div>' +
+      '<div class="rm-club-numbers-grid">' +
+      '<div class="rm-club-number-card"><span>Fundación</span><strong>'+esc(n.fundacion)+'</strong></div>' +
+      '<div class="rm-club-number-card"><span>Aniversario</span><strong>'+esc(n.aniversario || 'Editable')+'</strong></div>' +
+      '<div class="rm-club-number-card"><span>Series</span><strong>'+esc(n.series || '0')+'</strong></div>' +
+      '<div class="rm-club-number-card"><span>Socios</span><strong>'+esc(n.socios || '0')+'</strong></div>' +
+      '<div class="rm-club-number-card"><span>Campeonato</span><strong>'+esc(n.campeonato || 'Editable')+'</strong></div>' +
+      '<div class="rm-club-number-card"><span>Jugadores inscritos</span><strong>'+esc(n.jugadores || '0')+'</strong></div>' +
+      '</div>';
+
+    var carousel = document.getElementById('rmSponsorsTopCarousel');
+    var compact = document.getElementById('rmCompactResultsPanel');
+    if(carousel && carousel.parentElement) carousel.insertAdjacentElement('afterend', panel);
+    else if(compact && compact.parentElement) compact.parentElement.insertBefore(panel, compact);
+    else main().insertBefore(panel, main().firstChild);
+    forceShow(panel);
+  }
+
+  function adminNumbersEditor(){
+    if(!/admin/i.test(location.pathname) && !document.querySelector('.admin,.admin-panel,#adminPanel')) return;
+    if(document.getElementById('rmClubNumbersAdmin')) return;
+
+    var n = numbersData();
+    var box = document.createElement('section');
+    box.id = 'rmClubNumbersAdmin';
+    box.className = 'admin-card rm-club-numbers-admin';
+    box.innerHTML =
+      '<h2>Club en números</h2>' +
+      '<p>Edita los datos del panel público.</p>' +
+      '<div class="rm-admin-numbers-grid">' +
+      '<label>Fundación<input id="rmAdminFundacion" value="'+esc(n.fundacion)+'" placeholder="12/08/1932"></label>' +
+      '<label>Aniversario<input id="rmAdminAniversario" value="'+esc(n.aniversario)+'" placeholder="94 años"></label>' +
+      '<label>Series<input id="rmAdminSeries" value="'+esc(n.series)+'" placeholder="11"></label>' +
+      '<label>Socios<input id="rmAdminSocios" value="'+esc(n.socios)+'" placeholder="150"></label>' +
+      '<label>Campeonato<input id="rmAdminCampeonato" value="'+esc(n.campeonato)+'" placeholder="Campeonato 2026"></label>' +
+      '<label>Jugadores inscritos<input id="rmAdminJugadores" value="'+esc(n.jugadores)+'" placeholder="120"></label>' +
+      '</div>' +
+      '<button type="button" id="rmSaveClubNumbersBtn">Guardar Club en números</button>';
+
+    var host = document.querySelector('main') || document.body;
+    host.appendChild(box);
+
+    document.getElementById('rmSaveClubNumbersBtn').addEventListener('click', async function(){
+      var d = getDataSafe(); d.settings = d.settings || {};
+      d.settings.foundationDate = document.getElementById('rmAdminFundacion').value.trim();
+      d.settings.fundacion = d.settings.foundationDate;
+      d.settings.anniversary = document.getElementById('rmAdminAniversario').value.trim();
+      d.settings.aniversario = d.settings.anniversary;
+      d.settings.series = document.getElementById('rmAdminSeries').value.trim();
+      d.settings.seriesCount = d.settings.series;
+      d.settings.activeMembers = document.getElementById('rmAdminSocios').value.trim();
+      d.settings.socios = d.settings.activeMembers;
+      d.settings.championship = document.getElementById('rmAdminCampeonato').value.trim();
+      d.settings.campeonato = d.settings.championship;
+      d.settings.registeredPlayers = document.getElementById('rmAdminJugadores').value.trim();
+      d.settings.jugadoresInscritos = d.settings.registeredPlayers;
+
+      saveDataSafe(d);
+      try{ if(typeof pushCloud === 'function') await pushCloud(); }catch(e){}
+      await restUpsertSettings(d.settings);
+      renderNumbersPublic();
+      alert('Club en números guardado.');
+    });
+  }
+
+  function keepCompactBeforeHistory(){
+    var panel = document.getElementById('rmCompactResultsPanel');
+    var history = document.getElementById('historyPrincipalSection') || document.querySelector('.history-principal-section');
+    if(panel && history && history.parentElement){
+      history.parentElement.insertBefore(panel, history);
+      panel.style.setProperty('display','block','important');
+      panel.style.setProperty('visibility','visible','important');
+    }
+  }
+
+  async function run(){
+    await renderTopCarousel();
+    renderNumbersPublic();
+    adminNumbersEditor();
+    keepCompactBeforeHistory();
+
+    setTimeout(async function(){ await renderTopCarousel(); renderNumbersPublic(); keepCompactBeforeHistory(); }, 900);
+    setTimeout(async function(){ await renderTopCarousel(); renderNumbersPublic(); keepCompactBeforeHistory(); }, 2500);
+  }
+
+  if(typeof renderPublic === 'function'){
+    var oldRender = renderPublic;
+    renderPublic = function(){
+      var r = oldRender.apply(this, arguments);
+      setTimeout(run, 100);
+      setTimeout(run, 1200);
+      return r;
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    setTimeout(run, 100);
+    setTimeout(run, 1200);
+    setTimeout(run, 3000);
+    setTimeout(run, 6000);
+    try{
+      var timer = null;
+      var obs = new MutationObserver(function(){
+        clearTimeout(timer);
+        timer = setTimeout(run, 180);
+      });
+      obs.observe(document.body, {childList:true, subtree:true, attributes:true, attributeFilter:['style','class','hidden']});
+    }catch(e){}
+  });
+  document.addEventListener('rm:supabase-mobile-loaded', function(){ setTimeout(run, 150); });
+  window.addEventListener('pageshow', function(){ setTimeout(run, 250); });
+  window.rmRevisionOkCarruselNumerosAdmin = run;
+})();
+
+</script>
+<script id="rm-ngs-script">
+
+/* === RM NOTICIAS DESPLEGABLES + GALERIA POR SERIES === */
+(function(){
+ if(window.__RM_NEWS_GALLERY_FOLDERS__)return; window.__RM_NEWS_GALLERY_FOLDERS__=true;
+ const SB_URL="https://xzcbdyabzgwfoylipgco.supabase.co", SB_KEY="sb_publishable_rFYVLbY_0uJvOLJ0jftWzw_jsmNwVkl", SERIES=["Peques", "Segunda Infantil", "Primera Infantil", "Juveniles", "Serie Oro", "Super Senior", "Senior", "Segunda Adultos", "Primera Adultos", "Platinos", "Honor", "General"], BUCKET='club-assets';
+ const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+ const main=()=>document.querySelector('main')||document.querySelector('#app')||document.body;
+ function data(){try{if(typeof getData==='function')return getData()||{}}catch(e){};for(const k of ['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data']){try{let r=localStorage.getItem(k);if(r)return JSON.parse(r)}catch(e){}}return window.RM_DATA||window.clubData||{}}
+ function save(d){try{if(typeof saveData==='function')saveData(d)}catch(e){};for(const k of ['cdrm_final_data_v5_funcional','rmClubData','clubData','cd_rm_data','ricardoMendezData','club_ricardo_mendez_data']){try{localStorage.setItem(k,JSON.stringify(d))}catch(e){}}window.RM_DATA=d;window.clubData=d}
+ function client(){try{if(typeof initSB==='function')initSB()}catch(e){};if(window.supabaseClient?.from)return window.supabaseClient;if(window.sb?.from)return window.sb;if(window.supabase?.createClient){window.supabaseClient=window.supabase.createClient(SB_URL,SB_KEY);window.sb=window.supabaseClient;return window.sb}return null}
+ async function rest(table){try{let r=await fetch(SB_URL.replace(/\/$/,'')+'/rest/v1/'+table+'?select=*',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(!r.ok)return[];let j=await r.json();return Array.isArray(j)?j:[]}catch(e){return[]}}
+ async function insert(table,payload){try{let r=await fetch(SB_URL.replace(/\/$/,'')+'/rest/v1/'+table,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(payload)});if(!r.ok)return null;let j=await r.json();return Array.isArray(j)?j[0]:j}catch(e){return null}}
+ async function upload(file,serie){let c=client(); if(!file||!c?.storage)return''; let safe=(file.name||'archivo').replace(/[^a-zA-Z0-9._-]/g,'_'); let path='gallery/'+String(serie||'general').replace(/\s+/g,'_').toLowerCase()+'/'+Date.now()+'_'+safe; try{let up=await c.storage.from(BUCKET).upload(path,file,{cacheControl:'3600',upsert:false}); if(up.error)return''; let pub=c.storage.from(BUCKET).getPublicUrl(path); return pub?.data?.publicUrl||''}catch(e){return''}}
+ const urlOf=o=>o?.url||o?.image||o?.image_url||o?.imageUrl||o?.src||o?.file_url||o?.publicUrl||o?.public_url||o?.video||o?.video_url||'';
+ const titleOf=(o,f='Galería')=>o?.title||o?.titulo||o?.name||o?.nombre||o?.descripcion||o?.description||f;
+ const serieOf=o=>o?.serie||o?.series||o?.category||o?.categoria||o?.folder||o?.carpeta||'General';
+ function typeOf(o){let u=urlOf(o).toLowerCase(),t=String(o?.type||o?.tipo||'').toLowerCase(); return t.includes('video')||/\.mp4|\.webm|\.mov|youtube|youtu\.be/.test(u)?'video':'photo'}
+ function logo(){let img=document.querySelector('img[src*="logo_ricardo_mendez"],.club-logo img,.logo img');return img?.currentSrc||img?.src||'logo_ricardo_mendez.png'}
+ async function newsData(){let d=data(); if(Array.isArray(d.news)&&d.news.length)return d.news; let r=await rest('news'); if(r.length){d.news=r;save(d)} return r}
+ async function galData(){let d=data(); if(Array.isArray(d.gallery)&&d.gallery.length)return d.gallery; let r=await rest('gallery'); if(r.length){d.gallery=r;save(d)} return r}
+ async function renderNews(){
+  let news=await newsData(), old=document.getElementById('newsGrid')||document.querySelector('.news-grid,.noticias-grid'), oldSec=old?.closest('section,.section')||old?.parentElement;
+  let sec=document.getElementById('rmNewsAccordionSection')||document.createElement('section'); sec.id='rmNewsAccordionSection'; sec.className='section rm-news-accordion-section';
+  sec.innerHTML='<div class="rm-accordion-head"><div><h2>Noticias</h2><p>Información oficial del club</p></div><button type="button" id="rmToggleNewsBtn" class="rm-toggle-news-btn" aria-expanded="false"><span>+</span> Ver noticias</button></div><div id="rmNewsAccordionBody" class="rm-news-accordion-body" hidden><div class="rm-news-accordion-grid"></div></div>';
+  let grid=sec.querySelector('.rm-news-accordion-grid');
+  grid.innerHTML=news.length?news.map(n=>{let im=urlOf(n),ti=titleOf(n,'Noticia'),tx=n.text||n.descripcion||n.description||n.body||n.content||'';return '<article class="rm-news-accordion-card">'+(im?'<img src="'+esc(im)+'" alt="'+esc(ti)+'" loading="lazy">':'<div class="rm-news-no-img">RM</div>')+'<div class="rm-news-text"><h3>'+esc(ti)+'</h3><p>'+esc(tx)+'</p></div></article>'}).join(''):'<div class="rm-empty-box">Aún no hay noticias cargadas.</div>';
+  if(oldSec&&oldSec!==sec&&oldSec.parentElement){oldSec.parentElement.insertBefore(sec,oldSec); oldSec.classList.add('rm-old-news-hidden'); oldSec.style.setProperty('display','none','important')} else if(!sec.parentElement){let h=document.getElementById('historyPrincipalSection')||document.querySelector('.history-principal-section'); h?.parentElement?h.parentElement.insertBefore(sec,h):main().appendChild(sec)}
+  let btn=sec.querySelector('#rmToggleNewsBtn'), body=sec.querySelector('#rmNewsAccordionBody');
+  btn.onclick=()=>{let open=!body.hidden; body.hidden=open; btn.setAttribute('aria-expanded',String(!open)); btn.innerHTML=open?'<span>+</span> Ver noticias':'<span>−</span> Ocultar noticias'; sec.classList.toggle('open',!open)};
+ }
+ function groups(items){let g={};SERIES.forEach(s=>g[s]=[]);items.forEach(it=>{let s=serieOf(it); if(!g[s])g[s]=[]; g[s].push(it)});return g}
+ async function renderFolders(){
+  let gal=await galData(), old=document.getElementById('galleryGrid')||document.querySelector('.gallery-grid,.galeria-grid,.photos-grid,.photo-grid'), oldSec=old?.closest('section,.section')||old?.parentElement, g=groups(gal), sec=document.getElementById('rmGalleryFoldersSection')||document.createElement('section');
+  sec.id='rmGalleryFoldersSection'; sec.className='section rm-gallery-folders-section'; sec.innerHTML='<div class="section-head rm-gallery-folder-head"><h2>Fotos y videos por serie</h2><p>Carpetas ordenadas con el logo del club</p></div><div id="rmGalleryFolderGrid" class="rm-gallery-folder-grid"></div><div id="rmGalleryFolderContent" class="rm-gallery-folder-content" hidden></div>';
+  let fg=sec.querySelector('#rmGalleryFolderGrid'), cont=sec.querySelector('#rmGalleryFolderContent'), lg=logo();
+  fg.innerHTML=SERIES.map(s=>'<button type="button" class="rm-serie-folder" data-serie="'+esc(s)+'"><img src="'+esc(lg)+'" alt="Logo Ricardo Méndez"><strong>'+esc(s)+'</strong><span>'+((g[s]||[]).length)+' archivo'+(((g[s]||[]).length)==1?'':'s')+'</span></button>').join('');
+  fg.querySelectorAll('.rm-serie-folder').forEach(b=>b.onclick=()=>{let s=b.dataset.serie, arr=g[s]||[]; fg.hidden=true; cont.hidden=false; cont.innerHTML='<div class="rm-folder-open-head"><button type="button" id="rmBackFoldersBtn">← Volver a carpetas</button><h3>'+esc(s)+'</h3></div><div class="rm-folder-media-grid">'+(arr.length?arr.map(it=>{let u=urlOf(it),t=titleOf(it,s); if(typeOf(it)==='video')return '<article class="rm-folder-media-card">'+(u.includes('youtube')||u.includes('youtu.be')?'<a href="'+esc(u)+'" target="_blank">▶ Ver video</a>':'<video src="'+esc(u)+'" controls></video>')+'<h4>'+esc(t)+'</h4></article>'; return '<article class="rm-folder-media-card"><img src="'+esc(u)+'" alt="'+esc(t)+'" loading="lazy"><h4>'+esc(t)+'</h4></article>'}).join(''):'<div class="rm-empty-box">Carpeta sin fotos ni videos todavía.</div>')+'</div>'; cont.querySelector('#rmBackFoldersBtn').onclick=()=>{cont.hidden=true;fg.hidden=false}});
+  if(oldSec&&oldSec!==sec&&oldSec.parentElement){oldSec.parentElement.insertBefore(sec,oldSec); oldSec.classList.add('rm-old-gallery-hidden'); oldSec.style.setProperty('display','none','important')} else if(!sec.parentElement)main().appendChild(sec);
+ }
+ function adminPanel(){
+  if(!/admin/i.test(location.pathname)&&!document.querySelector('.admin,.admin-panel,#adminPanel'))return; if(document.getElementById('rmGallerySeriesAdmin'))return;
+  let box=document.createElement('section'); box.id='rmGallerySeriesAdmin'; box.className='admin-card rm-gallery-series-admin';
+  box.innerHTML='<h2>Galería por series</h2><p>Asigna fotos/videos a una serie o agrega un nuevo archivo para que aparezca en carpetas.</p><div class="rm-admin-add-gallery"><input id="rmGalTitle" placeholder="Título foto/video"><select id="rmGalSerie">'+SERIES.map(s=>'<option>'+esc(s)+'</option>').join('')+'</select><select id="rmGalType"><option value="photo">Foto</option><option value="video">Video</option></select><input id="rmGalUrl" placeholder="URL imagen/video o subir archivo"><input id="rmGalFile" type="file" accept="image/*,video/*"><button type="button" id="rmAddGalleryBySerie">Agregar a carpeta</button></div><div id="rmGallerySeriesRows" class="rm-gallery-series-rows"></div><button type="button" id="rmSaveGallerySeries">Guardar cambios de series</button>';
+  (document.querySelector('main')||document.body).appendChild(box);
+  function rows(){let d=data(), arr=Array.isArray(d.gallery)?d.gallery:[], h=document.getElementById('rmGallerySeriesRows'); h.innerHTML=arr.map((it,i)=>'<div class="rm-gallery-series-row" data-idx="'+i+'"><span class="rm-mini-preview">'+(urlOf(it)?'<img src="'+esc(urlOf(it))+'">':'RM')+'</span><input class="rm-row-title" value="'+esc(titleOf(it,'Galería'))+'" placeholder="Título"><select class="rm-row-serie">'+SERIES.map(s=>'<option '+(s===serieOf(it)?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select><button type="button" class="rmDeleteGalleryItem">Eliminar</button></div>').join(''); h.querySelectorAll('.rmDeleteGalleryItem').forEach(btn=>btn.onclick=()=>btn.closest('.rm-gallery-series-row').remove())}
+  document.getElementById('rmAddGalleryBySerie').onclick=async()=>{let title=document.getElementById('rmGalTitle').value.trim(), serie=document.getElementById('rmGalSerie').value, type=document.getElementById('rmGalType').value, u=document.getElementById('rmGalUrl').value.trim(), file=document.getElementById('rmGalFile').files[0]; if(file){let up=await upload(file,serie); if(up)u=up} if(!u){alert('Debes colocar una URL o subir un archivo.');return} let d=data(); d.gallery=Array.isArray(d.gallery)?d.gallery:[]; let it={title:title||serie,titulo:title||serie,serie:serie,series:serie,type:type,tipo:type,url:u,image:u}; d.gallery.push(it); save(d); try{await insert('gallery',it)}catch(e){}; try{if(typeof pushCloud==='function')await pushCloud()}catch(e){}; rows(); alert('Archivo agregado a '+serie)};
+  document.getElementById('rmSaveGallerySeries').onclick=async()=>{let d=data(), old=Array.isArray(d.gallery)?d.gallery:[], upd=[]; document.querySelectorAll('#rmGallerySeriesRows .rm-gallery-series-row').forEach(row=>{let it=old[Number(row.dataset.idx)]||{}, ti=row.querySelector('.rm-row-title').value.trim(), se=row.querySelector('.rm-row-serie').value; it.title=ti||it.title||se; it.titulo=it.title; it.serie=se; it.series=se; upd.push(it)}); d.gallery=upd; save(d); try{if(typeof pushCloud==='function')await pushCloud()}catch(e){}; alert('Series de galería guardadas.')};
+  rows();
+ }
+ async function run(){await renderNews(); await renderFolders(); adminPanel()}
+ if(typeof renderPublic==='function'){let old=renderPublic; renderPublic=function(){let r=old.apply(this,arguments); setTimeout(run,160); setTimeout(run,1400); return r}}
+ document.addEventListener('DOMContentLoaded',()=>{setTimeout(run,160);setTimeout(run,1400);setTimeout(run,3200)});
+ document.addEventListener('rm:supabase-mobile-loaded',()=>setTimeout(run,200));
+ window.addEventListener('pageshow',()=>setTimeout(run,260));
+ window.rmNoticiasGaleriaSeries=run;
+})();
+
+</script>
+<script src="rm-player-highlights-admin.js?v=destacados_20260624"></script>
+<script src="rm-admin-galeria-simple.js?v=galeria_simple_20260625"></script>
+</body></html>

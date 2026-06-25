@@ -1,0 +1,48 @@
+/* =========================================================
+   LOGO DEL CLUB BAJO COMPARTIR · WHATSAPP · INSTALAR APP
+========================================================= */
+#rmLogoBelowTopActions.rm-logo-below-top-actions{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+  margin:6px auto 12px !important;
+  padding:0 !important;
+  pointer-events:none !important;
+}
+
+#rmLogoBelowTopActions img{
+  width:110px !important;
+  height:auto !important;
+  max-height:130px !important;
+  object-fit:contain !important;
+  border-radius:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  filter:drop-shadow(0 0 10px rgba(255,255,255,.38)) drop-shadow(0 0 14px rgba(0,140,255,.30)) !important;
+}
+
+#rmLogoBelowTopActions span{
+  color:#f7d36b !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  letter-spacing:.05em !important;
+  text-transform:uppercase !important;
+  text-align:center !important;
+  text-shadow:0 1px 4px rgba(0,0,0,.7) !important;
+}
+
+@media(max-width:760px){
+  #rmLogoBelowTopActions{
+    margin:4px auto 10px !important;
+  }
+  #rmLogoBelowTopActions img{
+    width:82px !important;
+    max-height:100px !important;
+  }
+  #rmLogoBelowTopActions span{
+    font-size:9px !important;
+  }
+}

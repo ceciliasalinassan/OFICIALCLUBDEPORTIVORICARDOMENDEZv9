@@ -1,0 +1,21 @@
+/* =========================================================
+   ADMIN · GALERÍA SIMPLE SIN SERIES
+========================================================= */
+#rmGallerySeriesAdmin{display:none!important;visibility:hidden!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+#tab-gallery.rm-simple-gallery-admin{display:block}
+.rm-simple-gallery-help{color:#cfd8e8;line-height:1.45;margin:0 0 14px}
+.rm-simple-gallery-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.rm-simple-gallery-form label{display:grid;gap:6px;color:#f7d36b;font-weight:800;font-size:13px}
+.rm-simple-gallery-form input,.rm-simple-gallery-form select{min-height:42px;box-sizing:border-box}
+.rm-simple-gallery-form button{min-height:42px;align-self:end}
+.rm-simple-gallery-or{display:flex;align-items:end;justify-content:center;color:#9fb4d4;font-weight:800;padding-bottom:12px}
+.rm-simple-gallery-subtitle{color:#f7d36b;margin:22px 0 10px}
+.rm-simple-gallery-list{display:grid;gap:8px}
+.rm-simple-gallery-item{display:grid;grid-template-columns:58px 1fr auto;gap:10px;align-items:center;padding:8px;border:1px solid rgba(0,91,255,.28);border-radius:11px;background:rgba(255,255,255,.04)}
+.rm-simple-gallery-preview,.rm-simple-gallery-preview img,.rm-simple-gallery-video,.rm-simple-gallery-empty{width:56px;height:46px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.4)}
+.rm-simple-gallery-preview img{object-fit:cover;display:block}
+.rm-simple-gallery-video,.rm-simple-gallery-empty{display:flex;align-items:center;justify-content:center;color:#f7d36b;font-weight:900}
+.rm-simple-gallery-copy{display:grid;gap:3px}.rm-simple-gallery-copy strong{color:#fff;font-size:13px}.rm-simple-gallery-copy span{color:#a8bfdc;font-size:11px}
+.rmSimpleDeleteMedia{background:#8a1f1f!important}
+.rm-simple-gallery-empty-state{padding:14px;border:1px dashed rgba(0,91,255,.35);border-radius:10px;color:#cfd8e8}
+@media(max-width:760px){.rm-simple-gallery-form{grid-template-columns:1fr}.rm-simple-gallery-or{padding:0}.rm-simple-gallery-item{grid-template-columns:58px 1fr}.rmSimpleDeleteMedia{grid-column:1/-1}}

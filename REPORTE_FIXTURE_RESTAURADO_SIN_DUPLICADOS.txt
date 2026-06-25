@@ -1,0 +1,45 @@
+{
+  "base": "cd_ricardo_mendez_CLUB_EN_NUMEROS_UNICO_OK.zip",
+  "fixture_restaurado_visible": true,
+  "fixture_posicionado_antes_de_jugador_destacado": true,
+  "club_en_numeros_unico": true,
+  "elimina_solo_resumen_estatico_duplicado": true,
+  "no_elimina_padres_ni_secciones_generales": true,
+  "scripts": {
+    "rm-fix-club-numeros-fixture-safe.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-final-section-order.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-restore-acumulada-ranking.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 42
+}

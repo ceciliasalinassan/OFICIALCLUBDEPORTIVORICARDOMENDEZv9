@@ -1,0 +1,29 @@
+
+/* =========================================================
+   BLOQUE FIJO: ORDEN DEPORTIVO
+========================================================= */
+#rmSportsSequence.rm-sports-sequence{
+  display:block !important;
+  width:100% !important;
+  clear:both !important;
+}
+
+#rmSportsSequence > #playerHighlightsSection,
+#rmSportsSequence > #rmFecha8Standings,
+#rmSportsSequence > #posiciones,
+#rmSportsSequence > #ranking,
+#rmSportsSequence > #seriesRankingSection,
+#rmSportsSequence > #memberSection,
+#rmSportsSequence > #sponsorsBottomSection{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  clear:both !important;
+}
+
+#rmSportsSequence > #playerHighlightsSection{
+  margin-top:18px !important;
+}

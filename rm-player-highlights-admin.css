@@ -1,0 +1,115 @@
+
+/* =========================================================
+   ADMIN · JUGADOR DESTACADO POR SERIE
+========================================================= */
+#tab-player-highlights .rm-highlight-admin-help {
+  color:#cfd8e8;
+  line-height:1.4;
+  margin:0 0 12px;
+}
+
+#tab-player-highlights label {
+  display:block;
+  color:#f7d36b;
+  font-weight:800;
+  margin:10px 0 5px;
+}
+
+#tab-player-highlights input,
+#tab-player-highlights select {
+  width:100%;
+  box-sizing:border-box;
+}
+
+.rm-highlight-admin-checks {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:12px 0;
+}
+
+.rm-highlight-admin-checks label {
+  display:inline-flex !important;
+  align-items:center;
+  gap:5px;
+  margin:0 !important;
+  padding:7px 10px;
+  border:1px solid rgba(0,200,255,.32);
+  border-radius:999px;
+  background:rgba(0,91,255,.10);
+  color:#fff !important;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.rm-highlight-admin-checks input {
+  width:auto !important;
+}
+
+#playerHighlightsAdminList {
+  display:grid;
+  gap:8px;
+  margin-top:16px;
+}
+
+.rm-highlight-admin-row {
+  display:grid;
+  grid-template-columns:42px 1fr auto auto;
+  align-items:center;
+  gap:9px;
+  padding:8px;
+  border:1px solid rgba(0,91,255,.28);
+  border-radius:10px;
+  background:rgba(255,255,255,.04);
+}
+
+.rm-highlight-admin-row img,
+.rm-highlight-admin-row > span {
+  width:40px;
+  height:40px;
+  border-radius:9px;
+  object-fit:cover;
+  background:rgba(255,255,255,.08);
+}
+
+.rm-highlight-admin-row > span {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#f7d36b;
+  font-size:11px;
+  font-weight:900;
+}
+
+.rm-highlight-admin-row strong,
+.rm-highlight-admin-row small {
+  display:block;
+}
+
+.rm-highlight-admin-row strong { color:#f7d36b; font-size:12px; }
+.rm-highlight-admin-row small { color:#fff; font-size:12px; margin-top:2px; }
+
+.rm-highlight-admin-tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:3px;
+}
+
+.rm-highlight-admin-tags em {
+  font-style:normal;
+  color:#dff8ff;
+  border:1px solid rgba(0,200,255,.25);
+  border-radius:999px;
+  padding:3px 5px;
+  font-size:9px;
+}
+
+.rmDeleteHighlight {
+  background:#8a1f1f !important;
+}
+
+@media(max-width:760px){
+  .rm-highlight-admin-row {
+    grid-template-columns:42px 1fr;
+  }
+}

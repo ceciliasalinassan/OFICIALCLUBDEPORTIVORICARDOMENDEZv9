@@ -1,0 +1,56 @@
+
+/* =========================================================
+   RESTAURAR TABLA ACUMULATIVA + RANKING DE SERIES
+========================================================= */
+#ranking,
+#seriesRankingSection {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  height:auto !important;
+  min-height:120px !important;
+  max-height:none !important;
+  overflow:visible !important;
+}
+
+#ranking.rm-acumulada-clubes-section,
+#seriesRankingSection.series-ranking-section {
+  max-width:1180px !important;
+  margin:18px auto !important;
+}
+
+#ranking .section-head h2,
+#seriesRankingSection .section-head h2 {
+  color:var(--gold,#f7d36b) !important;
+}
+
+.rm-restored-table-wrap {
+  overflow-x:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+  border-radius:14px !important;
+}
+
+.rm-restored-table {
+  min-width:760px !important;
+}
+
+.rm-restored-table .club-highlight-row td {
+  background:rgba(0,91,255,.36) !important;
+  color:#fff !important;
+  font-weight:900 !important;
+}
+
+.rm-restored-table .club-highlight-row td:nth-child(2) {
+  color:var(--gold,#f7d36b) !important;
+}
+
+@media(max-width:760px){
+  #ranking,
+  #seriesRankingSection {
+    margin:14px 8px !important;
+    padding:14px 10px !important;
+  }
+  .rm-restored-table {
+    font-size:12px !important;
+  }
+}

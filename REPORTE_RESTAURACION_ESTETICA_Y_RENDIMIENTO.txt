@@ -1,0 +1,36 @@
+{
+  "base_restaurada": "cd_ricardo_mendez_FECHA8_REVISADO_LIMPIO_OK.zip",
+  "estetica_anterior_preservada": true,
+  "solo_ajuste_interno_rendimiento": true,
+  "audio_diferido_hasta_play": true,
+  "no_se_reescribio_layout_ni_css_principal": true,
+  "scripts_validados": {
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-audio-inline.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-final-polish.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 18
+}

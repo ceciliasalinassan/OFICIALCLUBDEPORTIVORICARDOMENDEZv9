@@ -1,0 +1,39 @@
+{
+  "base": "cd_ricardo_mendez_ORDEN_TABLAS_JUGADORES_DESTACADOS_OK.zip",
+  "logo_debajo_compartir_whatsapp_instalar": true,
+  "usa_logo_oficial": true,
+  "sin_cambios_en_otras_secciones": true,
+  "scripts": {
+    "rm-logo-bajo-botones.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-restore-acumulada-ranking.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 33
+}

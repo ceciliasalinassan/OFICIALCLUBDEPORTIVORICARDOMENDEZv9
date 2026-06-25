@@ -1,0 +1,66 @@
+{
+  "archivo_revisado": "cd_ricardo_mendez_FECHA8_TABLAS_NOTICIAS_OK(1).zip",
+  "estado_general": "OK con limpieza aplicada",
+  "validacion_javascript": {
+    "app.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-audio-inline.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-final-polish.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "archivos_esenciales_presentes": {
+    "index.html": true,
+    "admin.html": true,
+    "admin-simple.html": true,
+    "app_force20260617v2.js": true,
+    "admin.js": true,
+    "styles_force20260617v2.css": true,
+    "assets/himno-rimen.mp3": true,
+    "estadio_real_publico.jpg": true,
+    "rm-final-polish.js": true,
+    "rm-final-polish.css": true
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "sin_urls_corruptas": true,
+  "urls_corruptas": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "fecha8_tablas_html": true,
+  "noticias_desplegables": true,
+  "galeria_por_series": true,
+  "movimiento_continuo_mantenido": true,
+  "carrusel_superior_eliminado": true,
+  "club_en_numeros_admin": true,
+  "inline_scripts_index": 18,
+  "inline_styles_index": 17,
+  "archivos_finales": 18,
+  "tamano_mb": 7.9,
+  "limpieza_aplicada": [
+    "Música única en assets/himno-rimen.mp3",
+    "Fondo único estadio_real_publico.jpg",
+    "Se retiraron correcciones inline contradictorias del index",
+    "Se agregaron rm-final-polish.js y rm-final-polish.css al final de la carga"
+  ]
+}

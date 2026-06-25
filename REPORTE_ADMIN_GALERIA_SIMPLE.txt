@@ -1,0 +1,30 @@
+{
+  "base": "cd_ricardo_mendez_FIXTURE_RESTAURADO_SIN_DUPLICADOS_OK.zip",
+  "admin_gallery_by_series_disabled": true,
+  "admin_normal_gallery_enabled": true,
+  "admin_can_upload_photos_or_videos": true,
+  "admin_can_add_url_photo_or_video": true,
+  "admin_can_delete_gallery_items": true,
+  "does_not_change_public_gallery": true,
+  "scripts": {
+    "rm-admin-galeria-simple.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-player-highlights-admin.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 45
+}

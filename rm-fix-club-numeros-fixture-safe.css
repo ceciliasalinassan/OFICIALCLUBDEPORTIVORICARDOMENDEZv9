@@ -1,0 +1,41 @@
+
+/* =========================================================
+   REPARACIÓN SEGURA: CLUB EN NÚMEROS + FIXTURE
+========================================================= */
+
+/* Se oculta solo el resumen estático duplicado. */
+#clubSummarySection{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+
+/* Se mantiene el panel editable único. */
+#rmClubNumbersPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+/* Fixture restaurado y visible. */
+#fixture{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  height:auto !important;
+  min-height:120px !important;
+  max-height:none !important;
+  overflow:visible !important;
+}
+
+#fixtureGrid{
+  display:grid !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-height:70px !important;
+}

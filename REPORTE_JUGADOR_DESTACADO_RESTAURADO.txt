@@ -1,0 +1,48 @@
+{
+  "base": "cd_ricardo_mendez_ORDEN_CORREGIDO_DEFINITIVO_OK.zip",
+  "jugador_destacado_insertado_fisicamente_en_html": true,
+  "ubicacion": "Inmediatamente antes de la primera tabla de posiciones",
+  "visible_incluso_sin_jugadores_cargados": true,
+  "actualiza_datos_desde_admin": true,
+  "orden": [
+    "Jugador Destacado",
+    "Tabla de Posiciones",
+    "Tabla Acumulativa",
+    "Ranking Mejor Serie",
+    "Hazte Socio",
+    "Auspiciadores Oficiales"
+  ],
+  "scripts": {
+    "rm-order-player-highlight.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-final-section-order.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-restore-acumulada-ranking.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 39
+}

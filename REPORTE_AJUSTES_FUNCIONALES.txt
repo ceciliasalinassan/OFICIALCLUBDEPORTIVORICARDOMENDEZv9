@@ -1,0 +1,35 @@
+{
+  "base": "cd_ricardo_mendez_ESTETICA_ANTERIOR_OPTIMIZADA.zip",
+  "elimina_panel_auspiciadores_duplicado": true,
+  "elimina_recuadros_ultimas_noticias_y_galeria_destacada": true,
+  "hazte_socio_telefono_y_whatsapp_operativo": true,
+  "presidentes_admin_foto_nombre_periodo": true,
+  "musica_ruta_root_corregida": true,
+  "facebook_publico_sin_admin_visible": true,
+  "contador_visitas_por_carga": true,
+  "js_validos": {
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-functional-fixes.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-audio-inline.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 22
+}
