@@ -1,92 +1,44 @@
 
 /* =========================================================
-   ADMIN · GALERÍA POR CARPETAS Y SERIES
+   ADMIN · GALERÍA COMPLETA DESDE STORAGE
 ========================================================= */
-.rm-folder-gallery-admin h2{color:#f7d36b;margin:0 0 6px}
-.rm-folder-gallery-help{color:#d8e5f5;line-height:1.45;margin:0 0 14px}
-.rm-folder-gallery-form{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-  align-items:end;
+.rm-full-gallery-admin{max-width:1240px}
+.rm-full-gallery-header{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
+.rm-full-gallery-header h2{margin:0 0 5px;color:#f7d36b}
+.rm-full-gallery-header p{margin:0;color:#cbddee;line-height:1.45}
+.rm-full-gallery-actions{display:flex;gap:8px;flex-wrap:wrap}
+.rm-full-gallery-actions button,.rm-full-gallery-form button,.rm-full-gallery-row button{
+  border:0;border-radius:9px;min-height:38px;padding:8px 12px;background:#005bff;color:#fff;font-weight:900;cursor:pointer
 }
-.rm-folder-gallery-form label{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-  color:#f7d36b;
-  font-size:12px;
-  font-weight:800;
+#rmSyncFullGallery{background:#0a7b56}
+.rm-full-gallery-actions button:disabled{opacity:.6;cursor:wait}
+.rm-full-gallery-status{margin:10px 0;padding:10px 12px;border:1px solid rgba(0,200,255,.28);border-radius:10px;background:rgba(0,112,185,.11);color:#d8efff;font-size:12px;font-weight:800}
+.rm-full-gallery-status.loading{color:#ffe49a;border-color:rgba(247,211,107,.35);background:rgba(247,211,107,.08)}
+.rm-full-gallery-status.error{color:#ffd4d4;border-color:rgba(255,100,100,.42);background:rgba(166,30,30,.12)}
+.rm-full-gallery-status.ok{color:#d0ffe3;border-color:rgba(101,255,175,.32);background:rgba(10,123,86,.14)}
+.rm-full-gallery-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;align-items:end;margin:12px 0}
+.rm-full-gallery-form label{display:flex;flex-direction:column;gap:5px;color:#f7d36b;font-size:12px;font-weight:800}
+.rm-full-gallery-form input,.rm-full-gallery-form select,.rm-full-gallery-tools input,.rm-full-gallery-tools select,.rm-full-gallery-row select{
+  box-sizing:border-box;width:100%;min-height:38px;padding:7px 9px;border:1px solid rgba(0,200,255,.38);border-radius:9px;background:rgba(3,12,24,.75);color:#fff
 }
-.rm-folder-gallery-form input,.rm-folder-gallery-form select,
-.rm-folder-gallery-item select{
-  width:100%;
-  height:38px;
-  box-sizing:border-box;
-  border:1px solid rgba(0,200,255,.42);
-  border-radius:9px;
-  background:rgba(0,0,0,.35);
-  color:#fff;
-  padding:0 9px;
-}
-.rm-folder-gallery-form button,.rm-folder-gallery-actions button,
-.rm-folder-gallery-item button{
-  min-height:38px;
-  border:0;
-  border-radius:9px;
-  background:#005bff;
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-.rm-folder-gallery-or{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#bcd4ee;
-  font-weight:800;
-}
-.rm-folder-gallery-actions{margin:12px 0}
-.rm-folder-gallery-actions button{background:#0b8c58}
-.rm-folder-gallery-subtitle{margin:14px 0 8px;color:#f7d36b}
-.rm-folder-gallery-list{display:grid;gap:8px}
-.rm-folder-gallery-item{
-  display:grid;
-  grid-template-columns:48px minmax(0,1fr) minmax(150px,200px) auto;
-  gap:9px;
-  align-items:center;
-  padding:8px;
-  border:1px solid rgba(0,200,255,.24);
-  border-radius:10px;
-  background:rgba(255,255,255,.04);
-}
-.rm-folder-gallery-preview,.rm-folder-gallery-preview img,
-.rm-folder-gallery-video,.rm-folder-gallery-empty{
-  width:46px;
-  height:42px;
-  border-radius:8px;
-}
-.rm-folder-gallery-preview{overflow:hidden;background:rgba(255,255,255,.08)}
-.rm-folder-gallery-preview img{object-fit:cover}
-.rm-folder-gallery-video,.rm-folder-gallery-empty{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#f7d36b;
-  font-weight:900;
-  background:rgba(0,91,255,.16);
-}
-.rm-folder-gallery-copy strong,.rm-folder-gallery-copy span{display:block}
-.rm-folder-gallery-copy strong{color:#fff;font-size:12px}
-.rm-folder-gallery-copy span{color:#b9cce0;font-size:11px;margin-top:3px}
-.rm-folder-gallery-item .rmDeleteFolderMedia{background:#8a1f1f}
-.rm-folder-gallery-empty-state{
-  padding:12px;
-  border:1px dashed rgba(0,200,255,.35);
-  border-radius:10px;
-  color:#d8e5f5;
-}
+.rm-full-gallery-form button{background:linear-gradient(135deg,#006cff,#00a6ff)}
+.rm-full-gallery-tools{display:grid;grid-template-columns:minmax(180px,1fr) minmax(150px,220px) auto;gap:9px;align-items:center;margin:15px 0 8px}
+.rm-full-gallery-tools strong{color:#f7d36b;white-space:nowrap}
+.rm-full-gallery-rows{display:grid;gap:8px}
+.rm-full-gallery-row{display:grid;grid-template-columns:52px minmax(0,1fr) minmax(140px,190px) auto;gap:10px;align-items:center;border:1px solid rgba(0,200,255,.22);border-radius:10px;background:rgba(255,255,255,.035);padding:8px}
+.rm-full-gallery-preview,.rm-full-gallery-preview img{width:50px;height:46px;border-radius:8px}
+.rm-full-gallery-preview{overflow:hidden;background:rgba(0,91,255,.15);display:flex;align-items:center;justify-content:center;color:#f7d36b;font-size:19px;font-weight:900}
+.rm-full-gallery-preview img{object-fit:cover;display:block}
+.rm-full-gallery-copy strong,.rm-full-gallery-copy small{display:block}
+.rm-full-gallery-copy strong{color:#fff;font-size:12px}
+.rm-full-gallery-copy small{color:#b8cbe0;font-size:11px;margin-top:3px}
+.rm-full-gallery-row button{background:#0a7b56}
+.rm-full-gallery-empty{padding:14px;border:1px dashed rgba(0,200,255,.36);border-radius:10px;color:#cbddee}
 @media(max-width:760px){
-  .rm-folder-gallery-item{grid-template-columns:48px 1fr}
-  .rm-folder-gallery-item select,.rm-folder-gallery-item button{grid-column:1/-1}
+  .rm-full-gallery-header{flex-direction:column}
+  .rm-full-gallery-tools{grid-template-columns:1fr}
+  .rm-full-gallery-row{grid-template-columns:52px 1fr}
+  .rm-full-gallery-row select,.rm-full-gallery-row button{grid-column:1/-1}
 }
+
+/* Prevención visual de duplicados: la lista usa una identidad única por archivo. */

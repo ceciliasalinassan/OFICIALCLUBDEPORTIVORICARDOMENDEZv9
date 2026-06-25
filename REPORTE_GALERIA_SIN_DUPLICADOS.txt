@@ -1,0 +1,46 @@
+{
+  "base": "cd_ricardo_mendez_GALERIA_TODAS_FOTOS_REPARADA_OK.zip",
+  "prevencion_duplicados": {
+    "lista_admin_sin_repetidos": true,
+    "sincronizacion_storage_no_reinserta_urls_existentes": true,
+    "carga_por_url_bloquea_misma_url": true,
+    "carga_archivo_bloquea_mismo_archivo_por_sha256": true,
+    "consulta_supabase_antes_de_insertar": true,
+    "no_elimina_archivos_antiguos_automaticamente": true,
+    "sin_intervalos_nuevos": true,
+    "sin_mutation_observer_nuevo": true
+  },
+  "scripts": {
+    "rm-admin-galeria-simple.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-publico.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-gallery-folder-sync.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 54
+}

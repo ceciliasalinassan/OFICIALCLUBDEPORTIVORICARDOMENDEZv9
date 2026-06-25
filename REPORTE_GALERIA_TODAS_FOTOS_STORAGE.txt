@@ -1,0 +1,48 @@
+{
+  "base": "cd_ricardo_mendez_MEJORAS_PANEL_PARTIDO_ESTABLE_OK.zip",
+  "correcciones": {
+    "lee_tabla_gallery_completa": true,
+    "lee_storage_recursivo": true,
+    "incluye_gallery_media_photos_fotos": true,
+    "muestra_todos_los_archivos_en_admin": true,
+    "sincroniza_archivos_storage_faltantes_a_tabla_gallery": true,
+    "persiste_carpeta_serie_en_settings": true,
+    "boton_actualizar_listado": true,
+    "boton_sincronizar_todo": true,
+    "sin_intervalos_nuevos": true,
+    "sin_mutation_observer_nuevo": true
+  },
+  "scripts": {
+    "rm-admin-galeria-simple.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-mejoras-publico.js": {
+      "ok": true,
+      "error": ""
+    },
+    "rm-gallery-folder-sync.js": {
+      "ok": true,
+      "error": ""
+    },
+    "admin.js": {
+      "ok": true,
+      "error": ""
+    },
+    "app_force20260617v2.js": {
+      "ok": true,
+      "error": ""
+    }
+  },
+  "sin_rutas_faltantes": true,
+  "rutas_faltantes": {
+    "index.html": [],
+    "admin.html": [],
+    "admin-simple.html": []
+  },
+  "archivos": 53
+}
